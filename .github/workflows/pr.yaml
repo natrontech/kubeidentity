@@ -27,9 +27,10 @@ jobs:
 
     - name: Get dependencies
       run: |
-        go get -v -t -d ./src/backend/...
+        cd ./src/backend
+        go get -v -t -d ./...
         go get gopkg.in/check.v1
     - name: Build
-      run: go build -v ./src/backend
+      run: go build -v .
     # - name: Test
     #   run: go test -v ./...
