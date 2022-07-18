@@ -1,4 +1,6 @@
 import type { NextPage } from 'next'
+import { useContext } from 'react';
+import { User, useUserContext } from '../contexts/userContext';
 
 const Home: NextPage = () => {
   return (
