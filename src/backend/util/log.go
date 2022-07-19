@@ -11,14 +11,18 @@ var (
 	ErrorLogger   *log.Logger
 	Status        string
 	MAX_REQUESTS  int
+	Red           = "\033[31m"
+	Orange        = "\033[33m"
+	Green         = "\033[32m"
+	White         = "\033[37m"
 )
 
 // InitLoggers initializes the loggers
 func InitLoggers() {
-	// Convenience logger for warning, info and error messages
-	InfoLogger = log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile)
-	WarningLogger = log.New(os.Stdout, "WARNING: ", log.Ldate|log.Ltime|log.Lshortfile)
-	ErrorLogger = log.New(os.Stderr, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)
+	// Convenience logger for warning, info and error messages with color
+	InfoLogger = log.New(os.Stdout, Green+"[INFO]  ", log.Ldate|log.Ltime|log.Lshortfile)
+	WarningLogger = log.New(os.Stdout, Orange+"[WARN]  ", log.Ldate|log.Ltime|log.Lshortfile)
+	ErrorLogger = log.New(os.Stderr, Red+"[ERROR] ", log.Ldate|log.Ltime|log.Lshortfile)
 }
 
 // GetStatus returns the status of the application startup

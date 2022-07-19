@@ -8,10 +8,12 @@ import Api from "../config/Api";
 export const UserContext = createContext({});
 
 export interface User {
-    uid: number;
-    name: string;
+    id: number;
+    login: string;
     email: string;
-    token: string;
+    name: string;
+    avatar_url: string;
+    github_team_slugs: string[];
 }
 
 export const useUserContext = () => {
@@ -29,11 +31,64 @@ export const UserContextProvider = ({ children }: Props) => {
     const router = useRouter();
 
     useEffect(() => {
+
+        const cookie = Cookies.get("token");
+        if (cookie) {
+            Api.get("/auth/github")
+                .then(res => {
+                    setUser(res.data);
+                    setLoading(false);
+                }).catch(err => {
+                    setError(err);
+                    setLoading(false);
+                }).finally(() => {
+                    setLoading(false);
+                });
+        } else {
+            setLoading(false);
+        }
+
+
     }, []);
 
-    const signInWithGithub = () => {
+    const signInWithGithub = (code: string) => {
+
         setLoading(true);
         setError(null);
+        setUser(null);
+
+        // send request to server
+        Api({
+            method: "post",
+            url: "/auth/github",
+            headers: {},
+            data: {
+                github_code: code
+            }
+        })
+            .then(({ data }) => {
+                const tempUser: User = {
+                    id: data.githubUser.id,
+                    login: data.githubUser.login,
+                    email: data.githubUser.email,
+                    name: data.githubUser.name,
+                    avatar_url: data.githubUser.avatar_url,
+                    github_team_slugs: data.githubUser.github_team_slugs
+                };
+                setUser(tempUser);
+                setLoading(false);
+                setError(null);
+                Cookies.set("token", data.token);
+                router.push("/dashboard");
+            }).catch(({ response }) => {
+                console.log(response);
+                setLoading(false);
+                setError(response);
+                setUser(null);
+                Cookies.remove("token");
+            }).finally(() => {
+                setLoading(false);
+            });
     }
 
     const logoutUser = () => {
@@ -44,6 +99,7 @@ export const UserContextProvider = ({ children }: Props) => {
         setUser(null);
         setError(null);
         DefaultAlert("Logged out", AlertType.Success);
+        router.push("/");
     }
 
     const contextValue = {
