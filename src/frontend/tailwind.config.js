@@ -29,7 +29,10 @@ module.exports = {
         transparent: "transparent",
         'black': '#1A1A1A',
         'white': '#FFFFFF',
-        'primary': '#193BF5'
+        'primary': '#9A1750',
+        'primary-dark': '#5D001E',
+        'secondary': '#E3AFBC',
+        'secondary-dark': '#EE4C7C'
       },
       fontSize: {
         '4b5': ['2.9rem', '1'],

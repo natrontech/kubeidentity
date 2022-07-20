@@ -31,9 +31,10 @@ export const UserContextProvider = ({ children }: Props) => {
     const router = useRouter();
 
     useEffect(() => {
-
-        const cookie = Cookies.get("token");
-        if (cookie) {
+        const token = Cookies.get("token");
+        if (token) {
+            //@ts-ignore
+            Api.defaults.headers.Authorization = 'Bearer ' + token;
             Api.get("/auth/github")
                 .then(res => {
                     setUser(res.data);
@@ -41,14 +42,15 @@ export const UserContextProvider = ({ children }: Props) => {
                 }).catch(err => {
                     setError(err);
                     setLoading(false);
+                    logoutUser(true);
                 }).finally(() => {
                     setLoading(false);
                 });
         } else {
+            setError(null);
+            setUser(null);
             setLoading(false);
         }
-
-
     }, []);
 
     const signInWithGithub = (code: string) => {
@@ -80,6 +82,7 @@ export const UserContextProvider = ({ children }: Props) => {
                 setError(null);
                 Cookies.set("token", data.token);
                 router.push("/dashboard");
+                DefaultAlert("Logged in", AlertType.Success);
             }).catch(({ response }) => {
                 console.log(response);
                 setLoading(false);
@@ -91,14 +94,16 @@ export const UserContextProvider = ({ children }: Props) => {
             });
     }
 
-    const logoutUser = () => {
+    const logoutUser = (noalert: boolean | null) => {
         Cookies.remove('token');
         setUser(null);
         // @ts-ignore
         delete Api.defaults.headers.Authorization;
         setUser(null);
         setError(null);
-        DefaultAlert("Logged out", AlertType.Success);
+        if (!noalert) {
+            DefaultAlert("Logged out", AlertType.Success);
+        }
         router.push("/");
     }
 
