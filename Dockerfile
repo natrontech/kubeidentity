@@ -1,9 +1,9 @@
 # Backend build
 FROM golang:1.17 as build-backend
-WORKDIR /go/src/github.com/natrongmbh/kubeperm
+WORKDIR /go/src/github.com/natrongmbh/kubeidentity
 # RUN go get -d -v golang.org/x/net/html
 COPY ./src/backend .
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o kubeperm .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o kubeidentity .
 
 # Frontend build
 # Install dependencies only when needed
@@ -26,12 +26,12 @@ RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
 # Production build
 FROM alpine:latest
 
-RUN addgroup -g 1001 -S kubeperm
-RUN adduser -S kubeperm -u 1001
+RUN addgroup -g 1001 -S kubeidentity
+RUN adduser -S kubeidentity -u 1001
 
 RUN apk --no-cache add ca-certificates
 WORKDIR /app/
-COPY --from=build-frontend --chown=kubeperm:kubeperm /app/out ./public
-COPY --from=build-backend --chown=kubeperm:kubeperm /go/src/github.com/natrongmbh/kubeperm/kubeperm ./
+COPY --from=build-frontend --chown=kubeidentity:kubeidentity /app/out ./public
+COPY --from=build-backend --chown=kubeidentity:kubeidentity /go/src/github.com/natrongmbh/kubeidentity/kubeidentity ./
 EXPOSE 8000
-CMD ["./kubeperm"]
+CMD ["./kubeidentity"]
