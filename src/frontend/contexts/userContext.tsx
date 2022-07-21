@@ -50,6 +50,7 @@ export const UserContextProvider = ({ children }: Props) => {
             setError(null);
             setUser(null);
             setLoading(false);
+            router.push("/");
         }
     }, []);
 
