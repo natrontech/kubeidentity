@@ -9,27 +9,32 @@ import (
 	"github.com/gofiber/redirect/v2"
 	"github.com/natrongmbh/kubeperm/routes"
 	"github.com/natrongmbh/kubeperm/util"
+
+	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/rest"
+	"k8s.io/client-go/util/flowcontrol"
 )
 
 func init() {
 	util.InitLoggers()
 	util.Status = "OK"
 
-	// config, err := rest.InClusterConfig()
-	// if err != nil {
-	// 	util.ErrorLogger.Println("Error getting in cluster config:", err)
-	// 	util.Status = "ERROR"
-	// 	os.Exit(1)
-	// }
+	config, err := rest.InClusterConfig()
+	if err != nil {
+		util.ErrorLogger.Println("Error getting in cluster config:", err)
+		util.Status = "ERROR"
+		os.Exit(1)
+	}
+	util.Kubeconfig = config
 
-	// config.RateLimiter = flowcontrol.NewTokenBucketRateLimiter(20, 50)
+	config.RateLimiter = flowcontrol.NewTokenBucketRateLimiter(20, 50)
 
-	// util.Clientset, err = kubernetes.NewForConfig(config)
-	// if err != nil {
-	// 	util.ErrorLogger.Println("Error creating clientset:", err)
-	// 	util.Status = "ERROR"
-	// 	os.Exit(1)
-	// }
+	util.Clientset, err = kubernetes.NewForConfig(config)
+	if err != nil {
+		util.ErrorLogger.Println("Error creating clientset:", err)
+		util.Status = "ERROR"
+		os.Exit(1)
+	}
 
 	if err := util.LoadEnv(); err != nil {
 		util.ErrorLogger.Println("Error loading environment variables:", err)
@@ -39,11 +44,7 @@ func init() {
 }
 
 func main() {
-	// engine := html.New("./views", ".html")
-
-	app := fiber.New(fiber.Config{
-		// Views: engine,
-	})
+	app := fiber.New(fiber.Config{})
 
 	app.Use(cors.New(cors.Config{
 		AllowMethods:     "GET,POST,PUT,DELETE,OPTIONS",

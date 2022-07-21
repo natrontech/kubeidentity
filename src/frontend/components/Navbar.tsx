@@ -13,7 +13,7 @@ export default function Navbar() {
     const router = useRouter();
 
     let navigation = [
-        { name: 'Dashboard', href: '/dashboard', current: router.pathname === '/dashboard' },
+        { name: 'Overview', href: '/overview', current: router.pathname === '/overview' },
         { name: 'Apps', href: '/apps', current: router.pathname === '/apps' },
     ]
 
@@ -24,7 +24,7 @@ export default function Navbar() {
     ]
 
     return (
-        <Disclosure as="nav" className="bg-white absolute top-0 w-full">
+        <Disclosure as="nav" className="bg-white absolute top-0 w-full shadow-sm">
             {({ open }) => (
                 <>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,7 +53,7 @@ export default function Navbar() {
                                         alt="Workflow"
                                     />
                                     <span
-                                        className="ml-3 text-xl font-GilroyMedium tracking-tight "
+                                        className="ml-3 text-xl font-GilroyBold tracking-tight text-primary"
                                     >
                                         KubeIdentity
                                     </span>
@@ -64,7 +64,7 @@ export default function Navbar() {
                                             key={item.name}
                                             href={item.href}
                                             className={classNames(
-                                                item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                item.current ? 'bg-gradient-to-r from-primary to-secondary-dark text-white' : 'text-black hover:bg-gray-700 hover:text-white',
                                                 'px-3 py-2 rounded-md text-sm font-medium'
                                             )}
                                             aria-current={item.current ? 'page' : undefined}
