@@ -2,14 +2,18 @@ import { useEffect } from "react";
 import { useUserContext } from "../../contexts/userContext"
 import ExportedImage from "next-image-export-optimizer"
 import { GithubIcon } from "../../lib/Icons";
+import getConfig from "next/config";
+
+const { publicRuntimeConfig } = getConfig();
 
 const LoginForm = () => {
+
 
     const { signInWithGithub }: any = useUserContext();
 
     const handleGithubLogin = () => {
         window.open(
-            `https://github.com/login/oauth/authorize?scope=user&client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI}`,
+            `https://github.com/login/oauth/authorize?scope=user&client_id=${publicRuntimeConfig.NEXT_PUBLIC_GITHUB_CLIENT_ID}&redirect_uri=${publicRuntimeConfig.NEXT_PUBLIC_GITHUB_REDIRECT_URI}`,
             "_self"
         );
     }

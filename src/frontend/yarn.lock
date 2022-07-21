@@ -3577,7 +3577,7 @@ natural-compare@^1.4.0:
   resolved "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz"
   integrity sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==
 
-next-image-export-optimizer@^0.11.0:
+next-image-export-optimizer@0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/next-image-export-optimizer/-/next-image-export-optimizer-0.11.0.tgz#cd175edf9c038734cb9b9ebfab7f80f4502d738a"
   integrity sha512-MFwDcNzzfdQ/6TmYlYfW3pmys6++PFiZ3pGHm8RdRl+pMtf2voXbGlQZ6AumZFcmub8p0s+HNJhJ794cl1PNtA==
@@ -4023,7 +4023,7 @@ react-is@^16.13.1:
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-loading-skeleton@^3.1.0:
+react-loading-skeleton@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/react-loading-skeleton/-/react-loading-skeleton-3.1.0.tgz#ce22942f1af77bfd60854417075792367f54f41e"
   integrity sha512-j1U1CWWs68nBPOg7tkQqnlFcAMFF6oEK6MgqAo15f8A5p7mjH6xyKn2gHbkcimpwfO0VQXqxAswnSYVr8lWzjw==

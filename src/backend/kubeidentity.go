@@ -2,11 +2,9 @@ package main
 
 import (
 	"os"
-	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/gofiber/redirect/v2"
 	"github.com/natrongmbh/kubeperm/routes"
 	"github.com/natrongmbh/kubeperm/util"
 
@@ -50,21 +48,6 @@ func main() {
 		AllowMethods:     "GET,POST,PUT,DELETE,OPTIONS",
 		AllowCredentials: true,
 		AllowOrigins:     util.CORS,
-	}))
-
-	app.Static("/", "./public", fiber.Static{
-		Index:         "index.html",
-		Compress:      true,
-		ByteRange:     true,
-		Browse:        true,
-		CacheDuration: 10 * time.Second,
-		MaxAge:        3600,
-	})
-
-	app.Use(redirect.New(redirect.Config{
-		Rules: map[string]string{
-			"/": "/index.html",
-		},
 	}))
 
 	routes.Setup(app)

@@ -8,7 +8,7 @@ const withPWA = require('next-pwa');
 module.exports = withPWA({
   trailingSlash: true,
   nextConfig,
-  serverRuntimeConfig: {
+  publicRuntimeConfig: {
     NEXT_PUBLIC_GITHUB_CLIENT_ID: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID,
     NEXT_PUBLIC_GITHUB_REDIRECT_URI: process.env.NEXT_PUBLIC_GITHUB_REDIRECT_URI,
     NEXT_PUBLIC_GITHUB_OAUTH_URI: process.env.NEXT_PUBLIC_GITHUB_OAUTH_URI,
@@ -32,5 +32,5 @@ module.exports = withPWA({
     register: true,
     skipWaiting: true,
     disable: process.env.NODE_ENV === "development",
-  }
+  },
 })
