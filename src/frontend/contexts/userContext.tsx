@@ -82,7 +82,7 @@ export const UserContextProvider = ({ children }: Props) => {
                 setLoading(false);
                 setError(null);
                 Cookies.set("token", data.token);
-                router.push("/dashboard");
+                router.push("/overview");
                 DefaultAlert("Logged in", AlertType.Success);
             }).catch(({ response }) => {
                 console.log(response);

@@ -1,2 +1,1 @@
-window.__env = {
-}
+window.__ENV = {};

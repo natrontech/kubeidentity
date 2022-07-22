@@ -5,6 +5,7 @@ import { PlusSmIcon } from '@heroicons/react/solid'
 import { classNames } from '../lib/design'
 import { useUserContext } from '../contexts/userContext'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 
 export default function Navbar() {
 
@@ -42,16 +43,28 @@ export default function Navbar() {
                                     </Disclosure.Button>
                                 </div>
                                 <div className="flex-shrink-0 flex items-center">
-                                    <img
-                                        className="block lg:hidden h-8 w-auto"
-                                        src="/images/logo/kubeidentity_logo_color.png"
-                                        alt="Workflow"
-                                    />
-                                    <img
-                                        className="hidden lg:block h-8 w-auto"
-                                        src="/images/logo/kubeidentity_logo_color.png"
-                                        alt="Workflow"
-                                    />
+                                    <div
+                                        className="block lg:hidden h-8 w-8 relative m-auto mb-5"
+                                    >
+                                        <Image
+                                            className=""
+                                            src="/images/logo/kubeidentity_logo_color.png"
+                                            alt="Workflow"
+                                            objectFit="contain"
+                                            layout="fill"
+                                        />
+                                    </div>
+                                    <div
+                                        className="hidden lg:block h-8 w-8 relative m-auto mb-5"
+                                    >
+                                        <Image
+                                            className=" "
+                                            src="/images/logo/kubeidentity_logo_color.png"
+                                            alt="Workflow"
+                                            objectFit="contain"
+                                            layout="fill"
+                                        />
+                                    </div>
                                     <span
                                         className="ml-3 text-xl font-GilroyBold tracking-tight text-primary"
                                     >

@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import LoginForm from '../components/login/LoginForm';
@@ -10,10 +11,8 @@ const Home: NextPage = () => {
   const router = useRouter();
 
   if (user && !loading) {
-    router.push('/dashboard');
+    router.push('/overview');
   }
-
-
   return (
     <div
       className="h-screen"

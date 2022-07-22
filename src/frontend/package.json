@@ -1,15 +1,15 @@
 {
-  "name": "kubeperm",
+  "name": "kubeidentity",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build && next export && next-image-export-optimizer",
-    "start": "next start",
-    "lint": "next lint",
-    "image": "next-image-export-optimizer"
+    "dev": "react-env -- next",
+    "build": "next build",
+    "start": "react-env -- next start",
+    "lint": "next lint"
   },
   "dependencies": {
+    "@beam-australia/react-env": "^3.1.1",
     "@headlessui/react": "^1.6.4",
     "@heroicons/react": "^1.0.6",
     "@tailwindcss/forms": "^0.5.2",

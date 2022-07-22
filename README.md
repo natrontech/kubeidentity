@@ -77,4 +77,8 @@ License: Apache 2.0
 
 ### Environment Variables
 
+- `ENV_GITHUB_CLIENT_ID`
+- `ENV_GITHUB_REDIRECT_URI`
+- `ENV_GITHUB_OAUTH_URI`
+
 *tbd.*

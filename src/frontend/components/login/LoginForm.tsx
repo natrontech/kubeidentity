@@ -1,19 +1,21 @@
 import { useEffect } from "react";
 import { useUserContext } from "../../contexts/userContext"
-import ExportedImage from "next-image-export-optimizer"
 import { GithubIcon } from "../../lib/Icons";
 import getConfig from "next/config";
+import Image from "next/image";
+import env from "@beam-australia/react-env";
 
-const { publicRuntimeConfig } = getConfig();
+const { publicRuntimeConfig: config } = getConfig();
 
 const LoginForm = () => {
 
+    console.log('config:', JSON.stringify(config))
 
     const { signInWithGithub }: any = useUserContext();
 
     const handleGithubLogin = () => {
         window.open(
-            `https://github.com/login/oauth/authorize?scope=user&client_id=${publicRuntimeConfig.NEXT_PUBLIC_GITHUB_CLIENT_ID}&redirect_uri=${publicRuntimeConfig.NEXT_PUBLIC_GITHUB_REDIRECT_URI}`,
+            `https://github.com/login/oauth/authorize?scope=user&client_id=${config.ENV_GITHUB_CLIENT_ID}&redirect_uri=${config.ENV_GITHUB_REDIRECT_URI}`,
             "_self"
         );
     }
@@ -25,7 +27,7 @@ const LoginForm = () => {
         if (code) {
             signInWithGithub(code);
         }
-    }, []);
+    }, [signInWithGithub]);
 
     return (
         <div
@@ -34,9 +36,9 @@ const LoginForm = () => {
             <div
                 className="h-32 w-32 relative m-auto mb-5"
             >
-                <ExportedImage
+                <Image
                     className="pointer-events-none"
-                    src="images/logo/kubeidentity_logo_color.png"
+                    src="/images/logo/kubeidentity_logo_color.png"
                     alt="KubeIdentity Logo"
                     objectFit="contain"
                     layout="fill"
