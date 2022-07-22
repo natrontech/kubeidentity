@@ -9,8 +9,6 @@ const { publicRuntimeConfig: config } = getConfig();
 
 const LoginForm = () => {
 
-    console.log('config:', JSON.stringify(config))
-
     const { signInWithGithub }: any = useUserContext();
 
     const handleGithubLogin = () => {
