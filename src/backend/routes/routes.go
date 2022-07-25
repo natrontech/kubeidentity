@@ -2,7 +2,7 @@ package routes
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/natrongmbh/kubeperm/controllers"
+	"github.com/natrongmbh/kubeidentity/controllers"
 )
 
 // Routes - Define all routes

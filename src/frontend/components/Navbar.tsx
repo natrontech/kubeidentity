@@ -25,7 +25,7 @@ export default function Navbar() {
     ]
 
     return (
-        <Disclosure as="nav" className="bg-white absolute top-0 w-full shadow-sm">
+        <Disclosure as="nav" className="bg-white absolute top-0 w-full shadow-sm z-50">
             {({ open }) => (
                 <>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

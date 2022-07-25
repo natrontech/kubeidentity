@@ -10,4 +10,4 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 COPY --from=build /go/src/github.com/natrongmbh/kubeidentity/kubeidentity ./
 EXPOSE 8000
-CMD ["./kubeidentity"]
+CMD ["./kubeidentity", "cluster"]

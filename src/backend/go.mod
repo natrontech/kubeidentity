@@ -1,4 +1,4 @@
-module github.com/natrongmbh/kubeperm
+module github.com/natrongmbh/kubeidentity
 
 go 1.18
 

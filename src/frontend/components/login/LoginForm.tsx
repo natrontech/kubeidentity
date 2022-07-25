@@ -40,6 +40,7 @@ const LoginForm = () => {
                     alt="KubeIdentity Logo"
                     objectFit="contain"
                     layout="fill"
+                    priority={true}
                 />
             </div>
             <h1 className="text-center text-primary sm:text-5xl text-3xl font-GilroyHeavy">KubeIdentity</h1>

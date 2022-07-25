@@ -3,6 +3,7 @@ import Api from "../../config/Api";
 import { AlertType, DefaultAlertMessage } from "../alerts/Alerts";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { ArrowsExpandIcon, CubeIcon, CubeTransparentIcon, InformationCircleIcon, LinkIcon } from "@heroicons/react/outline";
 
 const ClusterInfo = () => {
 
@@ -10,7 +11,7 @@ const ClusterInfo = () => {
         clusterApi: "",
         clusterVersion: "",
         totalNamespaces: 0,
-        totalPods: 0,
+        totalPods: 0
     });
     const [loading, setLoading] = useState(true);
 
@@ -33,55 +34,68 @@ const ClusterInfo = () => {
 
     return (
         <div
-            className="rounded-lg bg-white shadow-md"
+            className="rounded-lg bg-white shadow-md z-0"
         >
-            <div className="px-4 py-5 sm:px-6">
-                <h3 className="text-lg leading-6 font-medium text-gray-900">Cluster Information</h3>
+            <div className="px-4 py-5 sm:px-6 relative">
+                <div
+                    className="absolute top-3 right-3"
+                >
+                    <ArrowsExpandIcon className="inline-block h-6 w-6 text-gray-400" />
+                </div>
+                <h3 className="text-lg leading-6  text-gray-900">Cluster Information</h3>
                 <p className="mt-1 max-w-2xl text-sm text-gray-500">Details about your Kubernetes cluster</p>
             </div>
             <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
                 <dl className="sm:divide-y sm:divide-gray-200">
-                    <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt className="text-sm font-medium text-gray-500">Cluster API</dt>
+                    <div className="py-4 sm:py-5 font-GilroyMedium sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt className="text-sm text-gray-500">
+                            <LinkIcon className="h-5 inline" /> &nbsp; Cluster API
+                        </dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             {
-                                clusterInfo.clusterApi && !loading ? clusterInfo.clusterApi : 
-                                (
-                                    <Skeleton />
-                                )
+                                clusterInfo.clusterApi && !loading ? clusterInfo.clusterApi :
+                                    (
+                                        <Skeleton />
+                                    )
                             }
                         </dd>
                     </div>
                     <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt className="text-sm font-medium text-gray-500">Version</dt>
+                        <dt className="text-sm font-GilroyMedium text-gray-500">
+                            <InformationCircleIcon className="h-5 inline" /> &nbsp; Version
+                        </dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             {
-                                clusterInfo.clusterVersion && !loading ? clusterInfo.clusterVersion : 
-                                (
-                                    <Skeleton />
-                                )
+                                clusterInfo.clusterVersion && !loading ? clusterInfo.clusterVersion :
+                                    (
+                                        <Skeleton />
+                                    )
                             }
                         </dd>
                     </div>
                     <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt className="text-sm font-medium text-gray-500">Total Namespaces</dt>
+                        <dt className="text-sm font-GilroyMedium text-gray-500">
+                            <CubeTransparentIcon className="h-5 inline" /> &nbsp; Total Namespaces
+                        </dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             {
-                                clusterInfo.totalNamespaces && !loading ? clusterInfo.totalNamespaces : 
-                                (
-                                    <Skeleton />
-                                )
+                                clusterInfo.totalNamespaces && !loading ? clusterInfo.totalNamespaces :
+                                    (
+                                        <Skeleton />
+                                    )
                             }
                         </dd>
                     </div>
                     <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt className="text-sm font-medium text-gray-500">Total Pods</dt>
+                        <dt className="text-sm font-GilroyMedium text-gray-500">
+                            <CubeIcon className="h-5 inline" /> &nbsp; Total Pods
+                        </dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             {
-                                clusterInfo.totalPods && !loading ? clusterInfo.totalPods : 
-                                (
-                                    <Skeleton />
-                                )
+                                clusterInfo.totalPods && !loading ? clusterInfo.totalPods :
+                                    (
+                                        <Skeleton />
+                                    )
                             }
                         </dd>
                     </div>
