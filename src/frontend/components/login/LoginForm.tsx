@@ -25,7 +25,7 @@ const LoginForm = () => {
         if (code) {
             signInWithGithub(code);
         }
-    }, [signInWithGithub]);
+    }, []);
 
     return (
         <div

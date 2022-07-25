@@ -4,6 +4,8 @@ import { AlertType, DefaultAlertMessage } from "../alerts/Alerts";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { ArrowsExpandIcon, CubeIcon, CubeTransparentIcon, InformationCircleIcon, LinkIcon } from "@heroicons/react/outline";
+import { useUserContext } from "../../contexts/userContext";
+import Cookies from "js-cookie";
 
 const ClusterInfo = () => {
 
@@ -13,24 +15,30 @@ const ClusterInfo = () => {
         totalNamespaces: 0,
         totalPods: 0
     });
-    const [loading, setLoading] = useState(true);
+    const [loadingClusterInfo, setLoadingClusterInfo] = useState(true);
+
+    const { loading, user }: any = useUserContext();
+
+
 
     useEffect(() => {
         (
             async () => {
-                try {
-                    const { data } = await Api.get("/clusterinfo");
-                    if (data) {
-                        setClusterInfo(data);
+                if (!loading && user) {
+                    try {
+                        const { data } = await Api.get("/clusterinfo");
+                        if (data) {
+                            setClusterInfo(data);
+                        }
+                        setLoadingClusterInfo(false);
+                    } catch (error) {
+                        console.log(error);
+                        DefaultAlertMessage("Error", "Could not get Clusterinfo", AlertType.Error);
                     }
-                    setLoading(false);
-                } catch (error) {
-                    console.log(error);
-                    DefaultAlertMessage("Error", "Could not get Clusterinfo", AlertType.Error);
                 }
             }
         )()
-    }, []);
+    }, [loading, user]);
 
     return (
         <div
@@ -53,7 +61,7 @@ const ClusterInfo = () => {
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             {
-                                clusterInfo.clusterApi && !loading ? clusterInfo.clusterApi :
+                                clusterInfo.clusterApi && !loadingClusterInfo ? clusterInfo.clusterApi :
                                     (
                                         <Skeleton />
                                     )
@@ -66,7 +74,7 @@ const ClusterInfo = () => {
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             {
-                                clusterInfo.clusterVersion && !loading ? clusterInfo.clusterVersion :
+                                clusterInfo.clusterVersion && !loadingClusterInfo ? clusterInfo.clusterVersion :
                                     (
                                         <Skeleton />
                                     )
@@ -79,7 +87,7 @@ const ClusterInfo = () => {
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             {
-                                clusterInfo.totalNamespaces && !loading ? clusterInfo.totalNamespaces :
+                                clusterInfo.totalNamespaces && !loadingClusterInfo ? clusterInfo.totalNamespaces :
                                     (
                                         <Skeleton />
                                     )
@@ -92,7 +100,7 @@ const ClusterInfo = () => {
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             {
-                                clusterInfo.totalPods && !loading ? clusterInfo.totalPods :
+                                clusterInfo.totalPods && !loadingClusterInfo ? clusterInfo.totalPods :
                                     (
                                         <Skeleton />
                                     )

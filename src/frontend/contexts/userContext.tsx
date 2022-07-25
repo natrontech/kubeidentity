@@ -79,9 +79,10 @@ export const UserContextProvider = ({ children }: Props) => {
                     github_team_slugs: data.githubUser.github_team_slugs
                 };
                 setUser(tempUser);
+                Cookies.set("token", data.token);
+                Api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
                 setLoading(false);
                 setError(null);
-                Cookies.set("token", data.token);
                 router.push("/overview");
                 DefaultAlert("Logged in", AlertType.Success);
             }).catch(({ response }) => {
