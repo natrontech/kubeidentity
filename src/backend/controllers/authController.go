@@ -141,7 +141,7 @@ func LoggedIn(c *fiber.Ctx, githubCode string) error {
 }
 
 // CheckAuth checks if the token is valid and returns the github team slugs
-func CheckAuth(c *fiber.Ctx) (GithubUser, error) {
+func CheckAuth(c *fiber.Ctx) (models.GithubUser, error) {
 	var token *jwt.Token
 	var tokenString string
 
@@ -153,12 +153,12 @@ func CheckAuth(c *fiber.Ctx) (GithubUser, error) {
 	if len(bearerTokenSplit) == 2 {
 		tokenString = bearerTokenSplit[1]
 	} else {
-		return GithubUser{}, errors.New("Invalid bearer token")
+		return models.GithubUser{}, errors.New("Invalid bearer token")
 	}
 
 	if tokenString == "" {
 		// return unauthorized
-		return GithubUser{}, errors.New("Invalid bearer token")
+		return models.GithubUser{}, errors.New("Invalid bearer token")
 	}
 
 	var err error
@@ -168,35 +168,35 @@ func CheckAuth(c *fiber.Ctx) (GithubUser, error) {
 	})
 
 	if err != nil {
-		return GithubUser{}, err
+		return models.GithubUser{}, err
 	}
 
 	if token == nil {
-		return GithubUser{}, errors.New("Invalid bearer token")
+		return models.GithubUser{}, errors.New("Invalid bearer token")
 	}
 
 	// validate expiration
 	if !token.Valid {
-		return GithubUser{}, errors.New("Invalid bearer token")
+		return models.GithubUser{}, errors.New("Invalid bearer token")
 	}
 
 	// validate claims
 	claims := token.Claims.(jwt.MapClaims)
 
 	if claims["exp"] == nil {
-		return GithubUser{}, errors.New("Invalid bearer token")
+		return models.GithubUser{}, errors.New("Invalid bearer token")
 	} else {
 		exp := claims["exp"]
 		// convert exp to int64
 		expInt64 := int64(exp.(float64))
 		if expInt64 < time.Now().Unix() {
-			return GithubUser{}, errors.New("Invalid bearer token")
+			return models.GithubUser{}, errors.New("Invalid bearer token")
 		}
 	}
 
 	if claims["github_team_slugs"] == nil {
 		util.WarningLogger.Printf("IP %s is not authorized", c.IP())
-		return GithubUser{}, errors.New("Invalid bearer token")
+		return models.GithubUser{}, errors.New("Invalid bearer token")
 	}
 
 	var githubTeamSlugs []string
@@ -206,7 +206,7 @@ func CheckAuth(c *fiber.Ctx) (GithubUser, error) {
 
 	// return claims map as json
 
-	return GithubUser{
+	return models.GithubUser{
 		ID:                claims["id"].(float64),
 		GithubTeamSlugs:   githubTeamSlugs,
 		Login:             claims["login"].(string),
