@@ -1,3 +1,4 @@
+import { ComponentProps } from "react";
 import { classNames } from "../../lib/design";
 
 export enum ButtonType {
@@ -7,10 +8,11 @@ export enum ButtonType {
     SecondaryOutline = "secondaryOutline",
 }
 
-export default function Button({ buttonType, buttonText, onClick }: { buttonType: ButtonType, buttonText: string, onClick?: () => void }) {
+export default function Button({ buttonType, buttonText, buttonIcon, onClick }: { buttonType: ButtonType, buttonText: string, buttonIcon: any, onClick?: () => void }) {
 
-    const hoverAnimationClasses = "sm:hover:-translate-x-2 sm:hover:translate-y-2 active:hover:-translate-x-2 active:hover:translate-y-2 transition-all duration-150 ease-in-out";
-    const defaultStyleClasses = "font-GilroyBold text-lg py-4 px-12 w-full focus:outline-none"
+    const hoverAnimationClasses = "active:hover:scale-105 transition-all duration-150 ease-in-out";
+    const buttonBackgroundHover = "absolute right-0 w-10 h-32 -mt-10 rotate-12 transition-all duration-700 translate-x-12 opacity-10 group-hover:-translate-x-96 ease"
+    const defaultStyleClasses = "rounded-lg px-5 py-2.5 max-w-96 mx-auto block overflow-hidden group relative transition-all ease-out duration-300 shadow-lg"
 
     switch (buttonType) {
         case ButtonType.Primary:
@@ -23,6 +25,18 @@ export default function Button({ buttonType, buttonText, onClick }: { buttonType
                     )}
                     onClick={onClick}
                 >
+                    <span
+                        className={classNames(
+                            "bg-white",
+                            buttonBackgroundHover
+                        )}
+
+                    ></span>
+                    <div
+                        className="inline mr-2.5"
+                    >
+                        {buttonIcon}
+                    </div>
                     {buttonText}
                 </button>
             )
@@ -36,6 +50,18 @@ export default function Button({ buttonType, buttonText, onClick }: { buttonType
                     )}
                     onClick={onClick}
                 >
+                    <span
+                        className={classNames(
+                            "bg-primary",
+                            buttonBackgroundHover
+                        )}
+
+                    ></span>
+                    <div
+                        className="inline mr-2.5"
+                    >
+                        {buttonIcon}
+                    </div>
                     {buttonText}
                 </button >
             )
@@ -45,10 +71,22 @@ export default function Button({ buttonType, buttonText, onClick }: { buttonType
                     className={classNames(
                         hoverAnimationClasses,
                         defaultStyleClasses,
-                        "border-primary border-4 text-primary"
+                        "border-primary border-4 text-primary",
                     )}
                     onClick={onClick}
                 >
+                    <span
+                        className={classNames(
+                            "bg-primary",
+                            buttonBackgroundHover
+                        )}
+
+                    ></span>
+                    <div
+                        className="inline mr-2.5"
+                    >
+                        {buttonIcon}
+                    </div>
                     {buttonText}
                 </button>
             )
@@ -58,10 +96,22 @@ export default function Button({ buttonType, buttonText, onClick }: { buttonType
                     className={classNames(
                         hoverAnimationClasses,
                         defaultStyleClasses,
-                        "border-white border-4 text-white"
+                        "border-white border-4 text-white bg-primary"
                     )}
                     onClick={onClick}
                 >
+                    <span
+                        className={classNames(
+                            "bg-white",
+                            buttonBackgroundHover
+                        )}
+
+                    ></span>
+                    <div
+                        className="inline mr-2.5"
+                    >
+                        {buttonIcon}
+                    </div>
                     {buttonText}
                 </button>
             )

@@ -57,7 +57,7 @@ func GetClusterInfo(c *fiber.Ctx) error {
 	})
 }
 
-func GetServiceAccounts(c *fiber.Ctx) error {
+func GetPersonalServiceAccounts(c *fiber.Ctx) error {
 
 	util.InfoLogger.Printf("%s %s %s", c.IP(), c.Method(), c.Path())
 

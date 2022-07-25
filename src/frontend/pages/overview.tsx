@@ -27,7 +27,7 @@ const Dashboard: NextPage = () => {
                 <div
                     className="w-full"
                 >
-                    {/* <PersonalServiceAccount /> */}
+                    <PersonalServiceAccount />
                 </div>
 
             </div>

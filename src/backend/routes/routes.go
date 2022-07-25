@@ -17,6 +17,7 @@ func Setup(app *fiber.App) {
 	v1.Get("/auth/github/callback", controllers.GithubCallback)
 
 	v1.Get("/clusterinfo", controllers.GetClusterInfo)
+	v1.Get("/personal-service-account", controllers.GetPersonalServiceAccounts)
 
 	// API
 }
