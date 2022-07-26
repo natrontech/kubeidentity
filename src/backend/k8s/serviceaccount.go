@@ -10,7 +10,7 @@ import (
 
 func GetMatchingServiceAccountsByGithubTeam(githubUser models.GithubUser) ([]models.ServiceAccount, error) {
 
-	serviceAccounts, err := GetServiceAccounts("kubeidentity")
+	serviceAccounts, err := GetServiceAccounts(util.ConfigNamespace)
 	if err != nil {
 		return nil, err
 	}

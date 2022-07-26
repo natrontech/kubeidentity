@@ -25,6 +25,12 @@ func init() {
 	util.InitLoggers()
 	util.Status = "OK"
 
+	if err := util.LoadEnv(); err != nil {
+		util.ErrorLogger.Println("Error loading environment variables:", err)
+		util.Status = "ERROR"
+		os.Exit(1)
+	}
+
 	argsWithoutProg := os.Args[1:]
 	if len(argsWithoutProg) > 0 {
 		switch argsWithoutProg[0] {
@@ -82,20 +88,14 @@ func init() {
 
 	// check if namespace kubeidentity exists
 	// if not, create it
-	_, err = k8s.Clientset.CoreV1().Namespaces().Get(k8s.Ctx, "kubeidentity", metav1.GetOptions{})
+	_, err = k8s.Clientset.CoreV1().Namespaces().Get(k8s.Ctx, util.ConfigNamespace, metav1.GetOptions{})
 	if err != nil {
-		err := k8s.CreateNamespace("kubeidentity")
+		err := k8s.CreateNamespace(util.ConfigNamespace)
 		if err != nil {
 			util.ErrorLogger.Println("Error creating namespace:", err)
 			util.Status = "ERROR"
 			os.Exit(1)
 		}
-	}
-
-	if err := util.LoadEnv(); err != nil {
-		util.ErrorLogger.Println("Error loading environment variables:", err)
-		util.Status = "ERROR"
-		os.Exit(1)
 	}
 }
 
@@ -110,7 +110,7 @@ func main() {
 
 	routes.Setup(app)
 
-	util.InfoLogger.Println("Starting kubeperm...")
+	util.InfoLogger.Println("Starting KubeIdentity REST Backend...")
 
 	if err := app.Listen(":8000"); err != nil {
 		util.ErrorLogger.Println("Error starting server:", err)

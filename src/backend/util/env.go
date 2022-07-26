@@ -6,8 +6,9 @@ import (
 )
 
 var (
-	err  error
-	CORS string
+	err             error
+	CORS            string
+	ConfigNamespace string
 )
 
 // LoadEnv loads OS environment variables
@@ -33,6 +34,11 @@ func LoadEnv() error {
 
 	if GITHUB_ORGANIZATION = os.Getenv("GITHUB_ORGANIZATION"); GITHUB_ORGANIZATION == "" {
 		return errors.New("GITHUB_ORGANIZATION not set")
+	}
+
+	if ConfigNamespace = os.Getenv("KUBEIDENTITY_NAMESPACE"); ConfigNamespace == "" {
+		InfoLogger.Println("KUBEIDENTITY_NAMESPACE not set, defaulting to 'kubeidentity'")
+		ConfigNamespace = "kubeidentity"
 	}
 
 	return nil
