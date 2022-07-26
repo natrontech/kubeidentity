@@ -71,7 +71,7 @@ export default function Button({ buttonType, buttonText, buttonIcon, onClick }: 
                     className={classNames(
                         hoverAnimationClasses,
                         defaultStyleClasses,
-                        "border-primary border-4 text-primary",
+                        "border-primary bg-white border-4 text-primary",
                     )}
                     onClick={onClick}
                 >

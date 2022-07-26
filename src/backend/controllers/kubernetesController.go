@@ -68,13 +68,13 @@ func GetPersonalServiceAccounts(c *fiber.Ctx) error {
 		})
 	}
 
-	serviceAccounts, err := k8s.GetMatchingServiceAccountsByGithubTeam(githubUser)
+	serviceAccount, err := k8s.GetMatchingServiceAccountsByGithubUserID(githubUser)
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{
 			"status":  "error",
-			"message": "Error getting service accounts",
+			"message": err.Error(),
 		})
 	}
 
-	return c.JSON(serviceAccounts)
+	return c.JSON(serviceAccount)
 }

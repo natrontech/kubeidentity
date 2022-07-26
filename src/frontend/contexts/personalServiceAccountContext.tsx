@@ -11,8 +11,14 @@ type Props = {
     children: ReactNode;
 };
 
+export interface PersonalServiceAccountInterface {
+    name: string;
+    namespace: string;
+    token: string;
+}
+
 export const PersonalServiceAccountContextProvider = ({ children }: Props) => {
-    const [personalServiceAccount, setPersonalServiceAccount] = useState<any>();
+    const [personalServiceAccount, setPersonalServiceAccount] = useState<PersonalServiceAccountInterface>();
 
     const contextValue = {
         personalServiceAccount,
