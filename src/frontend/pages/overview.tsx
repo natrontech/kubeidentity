@@ -1,6 +1,7 @@
 import { NextPage } from "next"
-import ClusterInfo from "../components/dashboard/ClusterInfo";
-import PersonalServiceAccount from "../components/dashboard/PersonalServiceAccount";
+import ClusterInfo from "../components/overview/ClusterInfo";
+import Permissions from "../components/overview/Permissions";
+import PersonalServiceAccount from "../components/overview/PersonalServiceAccount";
 import { User, useUserContext } from "../contexts/userContext"
 
 const Dashboard: NextPage = () => {
@@ -29,7 +30,11 @@ const Dashboard: NextPage = () => {
                 >
                     <PersonalServiceAccount />
                 </div>
-
+                <div
+                    className="w-full"
+                >
+                    <Permissions />
+                </div>
             </div>
         </div>
     )
