@@ -1,5 +1,5 @@
 import { Listbox, Transition } from "@headlessui/react";
-import { CheckIcon, FingerPrintIcon, KeyIcon, LinkIcon, SelectorIcon, UserAddIcon, UserIcon } from "@heroicons/react/outline";
+import { CheckIcon, FingerPrintIcon, IdentificationIcon, KeyIcon, LinkIcon, SelectorIcon, UserAddIcon, UserIcon } from "@heroicons/react/outline";
 import { Fragment, useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import Api from "../../config/Api";
@@ -23,7 +23,6 @@ const PersonalServiceAccount = () => {
                         const { data } = await Api.get("/personal-service-account");
                         if (data) {
                             setPersonalServiceAccount(data);
-                            console.log(data);
                         }
                         setLoadingPersonalServiceAccount(false);
                     } catch (error: any) {
@@ -48,9 +47,9 @@ const PersonalServiceAccount = () => {
                 <div
                     className="absolute top-3 right-3"
                 >
-                    <UserIcon className="inline-block h-6 w-6 text-gray-400" />
+                    <IdentificationIcon className="inline-block h-6 w-6 text-gray-400" />
                 </div>
-                <h3 className="text-lg leading-6  text-gray-900">Personal Service Account</h3>
+                <h3 className="text-lg leading-6  text-gray-900">Personal Service Account (PSA)</h3>
                 <p className="mt-1 max-w-2xl text-sm text-gray-500">Select your Personal Kubernetes Service Account</p>
             </div>
             <div className="border-t border-gray-200 px-4 py-5 sm:p-0">

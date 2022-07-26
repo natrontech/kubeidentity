@@ -33,15 +33,8 @@ func GetClusterInfo(c *fiber.Ctx) error {
 		})
 	}
 
-	totalNamespaces, err := k8s.GetTotalNamespaces()
-	if err != nil {
-		return c.Status(500).JSON(fiber.Map{
-			"status":  "error",
-			"message": "Error getting total namespaces",
-		})
-	}
-
-	totalPods, err := k8s.GetTotalPods()
+	serviceAccounts, err := k8s.GetServiceAccounts(util.ConfigNamespace)
+	totalSAs := len(serviceAccounts)
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{
 			"status":  "error",
@@ -50,10 +43,10 @@ func GetClusterInfo(c *fiber.Ctx) error {
 	}
 
 	return c.JSON(fiber.Map{
-		"clusterApi":      clusterApi,
-		"clusterVersion":  clusterVersion,
-		"totalNamespaces": totalNamespaces,
-		"totalPods":       totalPods,
+		"clusterApi":     clusterApi,
+		"clusterVersion": clusterVersion,
+		"namespace":      util.ConfigNamespace,
+		"totalSAs":       totalSAs,
 	})
 }
 

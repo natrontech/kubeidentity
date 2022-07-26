@@ -3,7 +3,7 @@ import Api from "../../config/Api";
 import { AlertType, DefaultAlertMessage } from "../alerts/Alerts";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { ArrowsExpandIcon, CubeIcon, CubeTransparentIcon, InformationCircleIcon, LinkIcon } from "@heroicons/react/outline";
+import { ArrowsExpandIcon, CubeIcon, CubeTransparentIcon, InformationCircleIcon, LinkIcon, UserIcon } from "@heroicons/react/outline";
 import { useUserContext } from "../../contexts/userContext";
 import Cookies from "js-cookie";
 
@@ -12,8 +12,8 @@ const ClusterInfo = () => {
     const [clusterInfo, setClusterInfo] = useState({
         clusterApi: "",
         clusterVersion: "",
-        totalNamespaces: 0,
-        totalPods: 0
+        namespace: "",
+        totalSAs: 0
     });
     const [loadingClusterInfo, setLoadingClusterInfo] = useState(true);
 
@@ -83,11 +83,11 @@ const ClusterInfo = () => {
                     </div>
                     <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt className="text-sm font-GilroyMedium text-gray-500">
-                            <CubeTransparentIcon className="h-5 inline" /> &nbsp; Total Namespaces
+                            <CubeTransparentIcon className="h-5 inline" /> &nbsp; Namespace
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             {
-                                clusterInfo.totalNamespaces && !loadingClusterInfo ? clusterInfo.totalNamespaces :
+                                clusterInfo.namespace && !loadingClusterInfo ? clusterInfo.namespace :
                                     (
                                         <Skeleton />
                                     )
@@ -96,11 +96,11 @@ const ClusterInfo = () => {
                     </div>
                     <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt className="text-sm font-GilroyMedium text-gray-500">
-                            <CubeIcon className="h-5 inline" /> &nbsp; Total Pods
+                            <UserIcon className="h-5 inline" /> &nbsp; Total SAs
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             {
-                                clusterInfo.totalPods && !loadingClusterInfo ? clusterInfo.totalPods :
+                                clusterInfo.totalSAs && !loadingClusterInfo ? clusterInfo.totalSAs :
                                     (
                                         <Skeleton />
                                     )
