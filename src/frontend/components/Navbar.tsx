@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { BellIcon, DesktopComputerIcon, MenuIcon, StarIcon, TemplateIcon, XIcon } from '@heroicons/react/outline'
 import { PlusSmIcon } from '@heroicons/react/solid'
 import { classNames } from '../lib/design'
 import { useUserContext } from '../contexts/userContext'
@@ -14,9 +14,15 @@ export default function Navbar() {
     const router = useRouter();
 
     let navigation = [
-        { name: 'Overview', href: '/overview', current: router.pathname === '/overview' },
-        { name: 'Apps', href: '/apps', current: router.pathname === '/apps' },
+        { name: 'Overview', href: '/overview', current: router.pathname === '/overview', icon: <TemplateIcon className="h-5 w-5 inline" /> },
+        { name: 'Apps', href: '/apps', current: router.pathname === '/apps', icon: <DesktopComputerIcon className="h-5 w-5 inline" /> },
     ]
+
+    // add item to navigation if user is admin
+    if (user && !loading && user.is_admin) {
+        navigation.push({ name: 'Admin', href: '/admin', current: router.pathname === '/admin', icon: <StarIcon className="h-5 w-5 inline" /> })
+    }
+
 
 
     const userNavigation = [
@@ -82,7 +88,7 @@ export default function Navbar() {
                                             )}
                                             aria-current={item.current ? 'page' : undefined}
                                         >
-                                            {item.name}
+                                            {item.icon} {item.name}
                                         </a>
                                     ))}
                                 </div>
@@ -144,7 +150,7 @@ export default function Navbar() {
                                     )}
                                     aria-current={item.current ? 'page' : undefined}
                                 >
-                                    {item.name}
+                                    {item.icon} {item.name}
                                 </Disclosure.Button>
                             ))}
                         </div>

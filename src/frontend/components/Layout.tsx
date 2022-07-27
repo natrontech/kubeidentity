@@ -16,7 +16,7 @@ export default function Layout(props: any) {
                 ) : null
             }
 
-            
+
             <main className={classNames(
                 user && !loading ? "pt-20" : "pt-0",
                 "transition-all duration-150 ease-in-out"

@@ -44,8 +44,6 @@ func GetServiceAccount(name string) (models.ServiceAccount, error) {
 
 	// try 5 times (because of race conditions)
 	for i := 0; i < 5; i++ {
-		util.InfoLogger.Println("Trying to get service account token %i. time", i)
-
 		secrets, _ := GetSecretsInNamespace()
 		for _, secret := range secrets.Items {
 			if secret.Annotations["kubernetes.io/service-account.name"] == name {

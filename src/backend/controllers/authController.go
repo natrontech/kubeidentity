@@ -101,20 +101,25 @@ func LoggedIn(c *fiber.Ctx, githubCode string) error {
 	}
 
 	var githubTeamSlugs []string
+	temp_is_admin := false
 
 	for _, githubTeam := range githubTeamsDataMap {
 		githubTeamSlugs = append(githubTeamSlugs, githubTeam["slug"].(string))
+		if githubTeam["slug"].(string) == "admins" {
+			temp_is_admin = true
+		}
 	}
 
 	githubUser := models.GithubUser{
-		ID:                githubUserDataMap["id"].(float64),
-		Login:             githubUserDataMap["login"].(string),
-		Email:             githubUserDataMap["email"].(string),
-		Name:              githubUserDataMap["name"].(string),
-		AvatarURL:         githubUserDataMap["avatar_url"].(string),
-		GithubTeamSlugs:   githubTeamSlugs,
-		GithubAccessToken: githubAccessToken,
-		Organization:      "",
+		ID:                 githubUserDataMap["id"].(float64),
+		Login:              githubUserDataMap["login"].(string),
+		Email:              githubUserDataMap["email"].(string),
+		Name:               githubUserDataMap["name"].(string),
+		AvatarURL:          githubUserDataMap["avatar_url"].(string),
+		GithubTeamSlugs:    githubTeamSlugs,
+		GithubAccessToken:  githubAccessToken,
+		GithubOrganization: util.GITHUB_ORGANIZATION,
+		Is_Admin:           temp_is_admin,
 	}
 
 	exp := time.Now().Add(time.Hour * 24).Unix()
@@ -128,6 +133,7 @@ func LoggedIn(c *fiber.Ctx, githubCode string) error {
 		"avatar_url":          githubUser.AvatarURL,
 		"github_organization": util.GITHUB_ORGANIZATION,
 		"github_access_token": githubUser.GithubAccessToken,
+		"is_admin":            githubUser.Is_Admin,
 		"exp":                 exp,
 	}
 
@@ -207,13 +213,14 @@ func CheckAuth(c *fiber.Ctx) (models.GithubUser, error) {
 	// return claims map as json
 
 	return models.GithubUser{
-		ID:                claims["id"].(float64),
-		GithubTeamSlugs:   githubTeamSlugs,
-		Login:             claims["login"].(string),
-		Email:             claims["email"].(string),
-		Name:              claims["name"].(string),
-		AvatarURL:         claims["avatar_url"].(string),
-		Organization:      claims["github_organization"].(string),
-		GithubAccessToken: claims["github_access_token"].(string),
+		ID:                 claims["id"].(float64),
+		GithubTeamSlugs:    githubTeamSlugs,
+		Login:              claims["login"].(string),
+		Email:              claims["email"].(string),
+		Name:               claims["name"].(string),
+		AvatarURL:          claims["avatar_url"].(string),
+		GithubOrganization: claims["github_organization"].(string),
+		GithubAccessToken:  claims["github_access_token"].(string),
+		Is_Admin:           claims["is_admin"].(bool),
 	}, nil
 }

@@ -4,12 +4,13 @@ import { GithubIcon } from "../../lib/Icons";
 import getConfig from "next/config";
 import Image from "next/image";
 import env from "@beam-australia/react-env";
+import { classNames } from "../../lib/design";
 
 const { publicRuntimeConfig: config } = getConfig();
 
 const LoginForm = () => {
 
-    const { signInWithGithub }: any = useUserContext();
+    const { signInWithGithub, loading }: any = useUserContext();
 
     const handleGithubLogin = () => {
         window.open(
@@ -25,7 +26,7 @@ const LoginForm = () => {
         if (code) {
             signInWithGithub(code);
         }
-    }, []);
+    }, [signInWithGithub]);
 
     return (
         <div
@@ -51,7 +52,13 @@ const LoginForm = () => {
                 <span
                     className="inline"
                 >
-                    <GithubIcon color="white" width={26} height={26} /> Continue with Github
+                    <span
+                        className={classNames(
+                            loading ? "animate-spin" : "",
+                        )}
+                    >
+                        <GithubIcon color="white" width={26} height={26} />
+                    </span> Continue with Github
                 </span>
             </div>
         </div>

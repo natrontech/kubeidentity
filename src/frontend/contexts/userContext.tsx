@@ -14,6 +14,8 @@ export interface User {
     name: string;
     avatar_url: string;
     github_team_slugs: string[];
+    github_organization: string;
+    is_admin: boolean;
 }
 
 export const useUserContext = () => {
@@ -76,8 +78,11 @@ export const UserContextProvider = ({ children }: Props) => {
                     email: data.githubUser.email,
                     name: data.githubUser.name,
                     avatar_url: data.githubUser.avatar_url,
-                    github_team_slugs: data.githubUser.github_team_slugs
+                    github_team_slugs: data.githubUser.github_team_slugs,
+                    github_organization: data.githubUser.github_organization,
+                    is_admin: data.githubUser.is_admin
                 };
+                console.log(tempUser);
                 setUser(tempUser);
                 Cookies.set("token", data.token);
                 Api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
