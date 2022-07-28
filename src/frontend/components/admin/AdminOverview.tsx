@@ -1,7 +1,91 @@
 import { ExternalLinkIcon, PencilAltIcon, PencilIcon } from "@heroicons/react/outline";
 import { classNames } from "../../lib/design";
-import { LinkIcon } from "../../lib/Icons";
 import Button, { ButtonType } from "../general/Button";
+
+export interface Label {
+    [key: string]: string;
+}
+
+export interface ClusterRole {
+    metadata: {
+        name: string;
+        labels: Array<Label>;
+    },
+    rules: [
+        {
+            apiGroups: [string],
+            resources: [string],
+            verbs: [string]
+        }
+    ]
+}
+
+export interface Role {
+    metadata: {
+        name: string;
+        labels: Array<Label>;
+        namespace: string
+    },
+    rules: [
+        {
+            apiGroups: [string],
+            resources: [string],
+            verbs: [string]
+        }
+    ]
+}
+
+const sampleAdminClusterRole: ClusterRole = {
+    metadata: {
+        name: 'cluster-admin',
+        labels: [
+            {
+                'kubeidentity.io/github-organization': 'natrongmbh'
+            }
+        ]
+    },
+    rules: [
+        {
+            apiGroups: [
+                '*'
+            ],
+            resources: [
+                '*'
+            ],
+            verbs: [
+                '*'
+            ]
+        }
+    ]
+}
+
+const sampleNamespaceAdminRole: Role = {
+    metadata: {
+        name: 'kube-system-admin',
+        labels: [
+            {
+                'kubeidentity.io/github-organization': 'natrongmbh'
+            },
+            {
+                'kubeidentity.io/github-team': 'admins'
+            }
+        ],
+        namespace: 'kube-system'
+    },
+    rules: [
+        {
+            apiGroups: [
+                '*'
+            ],
+            resources: [
+                '*'
+            ],
+            verbs: [
+                '*'
+            ]
+        }
+    ]
+}
 
 const teams = [
     {
@@ -11,53 +95,10 @@ const teams = [
         html_url: 'https://github.com/orgs/natrongmbh/teams/admins',
         permission: 'admin',
         cluster_roles: [
-            {
-                metadata: {
-                    name: 'cluster-admin',
-                    labels: {
-                        'kubeidentity.io/github-organization': 'natrongmbh',
-                        'kubeidentity.io/github-team': 'admins', 
-                    }
-                },
-                rules: [
-                    {
-                        apiGroups: [
-                            '*'
-                        ],
-                        resources: [
-                            '*'
-                        ],
-                        verbs: [
-                            '*'
-                        ]
-                    }
-                ]
-            },
+            sampleAdminClusterRole
         ],
         roles: [
-            {
-                metadata: {
-                    name: 'kube-system-admin',
-                    labels: {
-                        'kubeidentity.io/github-organization': 'natrongmbh',
-                        'kubeidentity.io/github-team': 'admins',
-                    },
-                    namespace: 'kube-system'
-                },
-                rules: [
-                    {
-                        apiGroups: [
-                            '*'
-                        ],
-                        resources: [
-                            '*'
-                        ],
-                        verbs: [
-                            '*'
-                        ]
-                    }
-                ]
-            }
+            sampleNamespaceAdminRole
         ]
 
     },
@@ -74,6 +115,9 @@ const AdminOverview = () => {
         console.log('handleOnClickEditRoles')
     }
 
+    const handleSpecificEdit = (t: string) => {
+
+    }
 
     return (
         <div
@@ -191,7 +235,7 @@ const AdminOverview = () => {
                                             team.roles.map((role, roleIdx) => (
                                                 <div key={roleIdx}>
                                                     <div className="text-gray-500">{role.metadata.name}{roleIdx !== team.roles.length - 1 ? <span className="text-gray-500">,</span> : null}</div>
-                                                    <div className="text-primary text-xs -mt-1">({role.metadata.name})</div>                                                    
+                                                    <div className="text-primary text-xs -mt-1">({role.metadata.name})</div>
                                                 </div>
                                             ))
                                         }
