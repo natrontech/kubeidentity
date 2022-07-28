@@ -8,11 +8,16 @@ export enum ButtonType {
     SecondaryOutline = "secondaryOutline",
 }
 
-export default function Button({ buttonType, buttonText, buttonIcon, onClick }: { buttonType: ButtonType, buttonText: string, buttonIcon: any, onClick?: () => void }) {
+export default function Button({ widthString, buttonType, buttonText, buttonIcon, onClick }: { widthString?: any | "", buttonType: ButtonType, buttonText: string, buttonIcon?: any, onClick?: () => void }) {
 
     const hoverAnimationClasses = "active:hover:scale-105 transition-all duration-150 ease-in-out";
     const buttonBackgroundHover = "absolute right-0 w-10 h-32 -mt-10 rotate-12 transition-all duration-700 translate-x-12 opacity-10 group-hover:-translate-x-96 ease"
-    const defaultStyleClasses = "rounded-lg px-5 py-2.5 max-w-96 mx-auto block overflow-hidden group relative transition-all ease-out duration-300 shadow-lg"
+    const defaultStyleClasses = classNames(
+        "rounded-lg px-11 py-3 max-w-96 mx-auto block overflow-hidden group relative transition-all ease-out duration-300 shadow-lg",
+        widthString
+    )
+
+
 
     switch (buttonType) {
         case ButtonType.Primary:
@@ -21,7 +26,7 @@ export default function Button({ buttonType, buttonText, buttonIcon, onClick }: 
                     className={classNames(
                         hoverAnimationClasses,
                         defaultStyleClasses,
-                        "bg-primary text-white"
+                        "relative bg-primary text-white"
                     )}
                     onClick={onClick}
                 >
@@ -33,9 +38,16 @@ export default function Button({ buttonType, buttonText, buttonIcon, onClick }: 
 
                     ></span>
                     <div
-                        className="inline mr-2.5"
+                        className={classNames(
+                            buttonIcon ? "" : "hidden",
+                            "absolute top-1/2 left-2 w-8"
+                        )}
                     >
-                        {buttonIcon}
+                        <div
+                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                        >
+                            {buttonIcon}
+                        </div>
                     </div>
                     {buttonText}
                 </button>
@@ -46,7 +58,7 @@ export default function Button({ buttonType, buttonText, buttonIcon, onClick }: 
                     className={classNames(
                         hoverAnimationClasses,
                         defaultStyleClasses,
-                        "bg-white text-primary"
+                        "relative bg-white text-primary"
                     )}
                     onClick={onClick}
                 >
@@ -58,9 +70,16 @@ export default function Button({ buttonType, buttonText, buttonIcon, onClick }: 
 
                     ></span>
                     <div
-                        className="inline mr-2.5"
+                        className={classNames(
+                            buttonIcon ? "" : "hidden",
+                            "absolute top-1/2 left-2 w-8"
+                        )}
                     >
-                        {buttonIcon}
+                        <div
+                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                        >
+                            {buttonIcon}
+                        </div>
                     </div>
                     {buttonText}
                 </button >
@@ -71,7 +90,7 @@ export default function Button({ buttonType, buttonText, buttonIcon, onClick }: 
                     className={classNames(
                         hoverAnimationClasses,
                         defaultStyleClasses,
-                        "border-primary bg-white border-4 text-primary",
+                        "bg-white outline outline-4 outline-inherit box-border text-primary",
                     )}
                     onClick={onClick}
                 >
@@ -82,10 +101,18 @@ export default function Button({ buttonType, buttonText, buttonIcon, onClick }: 
                         )}
 
                     ></span>
+
                     <div
-                        className="inline mr-2.5"
+                        className={classNames(
+                            buttonIcon ? "" : "hidden",
+                            "absolute top-1/2 left-2 w-8"
+                        )}
                     >
-                        {buttonIcon}
+                        <div
+                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                        >
+                            {buttonIcon}
+                        </div>
                     </div>
                     {buttonText}
                 </button>
@@ -96,7 +123,7 @@ export default function Button({ buttonType, buttonText, buttonIcon, onClick }: 
                     className={classNames(
                         hoverAnimationClasses,
                         defaultStyleClasses,
-                        "border-white border-4 text-white bg-primary"
+                        "outline outline-4 outline-inherit box-border text-white bg-primary"
                     )}
                     onClick={onClick}
                 >
@@ -108,9 +135,16 @@ export default function Button({ buttonType, buttonText, buttonIcon, onClick }: 
 
                     ></span>
                     <div
-                        className="inline mr-2.5"
+                        className={classNames(
+                            buttonIcon ? "" : "hidden",
+                            "absolute top-1/2 left-2 w-8"
+                        )}
                     >
-                        {buttonIcon}
+                        <div
+                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                        >
+                            {buttonIcon}
+                        </div>
                     </div>
                     {buttonText}
                 </button>

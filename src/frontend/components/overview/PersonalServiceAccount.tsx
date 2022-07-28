@@ -75,7 +75,7 @@ const PersonalServiceAccount = () => {
                                         <h1 className="text-lg text-center mb-5 ">
                                             <FingerPrintIcon className="h-5 inline" /> {personalServiceAccount.name}
                                         </h1>
-                                        <Button buttonType={ButtonType.PrimaryOutline} buttonText="Copy Personal Access Token" buttonIcon={<KeyIcon className="h-6 inline" />} onClick={() => {
+                                        <Button buttonType={ButtonType.PrimaryOutline} buttonText="Copy Personal Access Token" buttonIcon={<KeyIcon className="h-5 inline" />} onClick={() => {
                                             // copy personalServiceAccount.token to clipboard
                                             navigator.clipboard.writeText(personalServiceAccount.token);
                                             DefaultAlertMessage("Success", "Personal Service Account Token copied to clipboard", AlertType.Success);
