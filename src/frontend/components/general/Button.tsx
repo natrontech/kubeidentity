@@ -8,13 +8,14 @@ export enum ButtonType {
     SecondaryOutline = "secondaryOutline",
 }
 
-export default function Button({ widthString, buttonType, buttonText, buttonIcon, onClick }: { widthString?: any | "", buttonType: ButtonType, buttonText: string, buttonIcon?: any, onClick?: () => void }) {
+export default function Button({ widthString, inline, buttonType, buttonText, buttonIcon, onClick }: { widthString?: any | "", inline?: any, buttonType: ButtonType, buttonText: string, buttonIcon?: any, onClick?: () => void }) {
 
     const hoverAnimationClasses = "active:hover:scale-105 transition-all duration-150 ease-in-out";
     const buttonBackgroundHover = "absolute right-0 w-10 h-32 -mt-10 rotate-12 transition-all duration-700 translate-x-12 opacity-10 group-hover:-translate-x-96 ease"
     const defaultStyleClasses = classNames(
         "rounded-lg px-11 py-3 max-w-96 mx-auto block overflow-hidden group relative transition-all ease-out duration-300 shadow-lg",
-        widthString
+        widthString,
+        inline && "inline-block",
     )
 
 

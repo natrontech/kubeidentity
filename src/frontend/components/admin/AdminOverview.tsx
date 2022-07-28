@@ -53,6 +53,9 @@ const sampleAdminClusterRole: ClusterRole = {
         labels: [
             {
                 'kubeidentity.io/github-organization': 'natrongmbh'
+            },
+            {
+                'kubeidentity.io/github-team': 'admins'
             }
         ]
     },
@@ -114,6 +117,20 @@ const teams: Array<AdminOverviewTeam> = [
         ]
 
     },
+    {
+        id: 1,
+        name: 'Adminss',
+        slug: 'admins',
+        html_url: 'https://github.com/orgs/natrongmbh/teams/admins',
+        github_permission: 'admin',
+        cluster_roles: [
+            sampleAdminClusterRole
+        ],
+        roles: [
+            sampleNamespaceAdminRole
+        ]
+
+    },
 ]
 
 const AdminOverview = () => {
@@ -131,7 +148,7 @@ const AdminOverview = () => {
 
     return (
         <div
-            className="sm:top-32  w-full bg-opacity-90 sm:bg-white sm:rounded-lg sm:shadow-lg p-10"
+            className="sm:top-32 lg:w-4/5 xl:w-3/5 sm:w-4/5 w-full mx-auto bg-opacity-90 sm:bg-white sm:rounded-lg sm:shadow-lg p-10"
         >
             <EditSpecificTeamModal ref={editSpecificTeamModalRef} />
             <div className="px-0 sm:px-6">
@@ -261,7 +278,7 @@ const AdminOverview = () => {
                                             type="button"
                                             className="inline-flex items-center rounded-md border-2 border-primary bg-white px-4 py-2 text-sm font-GilroyMedium leading-4 text-primary shadow-sm hover:bg-primary hover:text-white transition-all duration-150 ease "
                                             //@ts-ignore
-                                            onClick={() => editSpecificTeamModalRef.current.open()}
+                                            onClick={() => editSpecificTeamModalRef.current.open(team)}
                                         >
                                             <PencilIcon className="h-5 w-5 inline-block" />
                                         </button>
