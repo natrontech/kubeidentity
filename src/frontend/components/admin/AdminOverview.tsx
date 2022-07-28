@@ -35,6 +35,16 @@ export interface Role {
     ]
 }
 
+export interface AdminOverviewTeam {
+    id: number,
+    name: string,
+    slug: string,
+    html_url: string,
+    github_permission: string,
+    cluster_roles: Array<ClusterRole>,
+    roles: Array<Role>
+}
+
 const sampleAdminClusterRole: ClusterRole = {
     metadata: {
         name: 'cluster-admin',
@@ -87,13 +97,13 @@ const sampleNamespaceAdminRole: Role = {
     ]
 }
 
-const teams = [
+const teams: Array<AdminOverviewTeam> = [
     {
         id: 1,
         name: 'Admins',
         slug: 'admins',
         html_url: 'https://github.com/orgs/natrongmbh/teams/admins',
-        permission: 'admin',
+        github_permission: 'admin',
         cluster_roles: [
             sampleAdminClusterRole
         ],
@@ -208,7 +218,7 @@ const AdminOverview = () => {
                                             'hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell'
                                         )}
                                     >
-                                        {team.permission}
+                                        {team.github_permission}
                                     </td>
                                     <td
                                         className={classNames(
