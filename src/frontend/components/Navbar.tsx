@@ -31,7 +31,7 @@ export default function Navbar() {
     ]
 
     return (
-        <Disclosure as="nav" className="bg-white absolute top-0 w-full shadow-sm z-50">
+        <Disclosure as="nav" className="bg-white sm:absolute fixed top-0 w-full sm:shadow-sm shadow-lg z-40">
             {({ open }) => (
                 <>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -84,7 +84,7 @@ export default function Navbar() {
                                             href={item.href}
                                             className={classNames(
                                                 item.current ? 'bg-gradient-to-r from-primary to-secondary-dark text-white' : 'text-black hover:bg-gray-700 hover:text-white',
-                                                'px-3 py-2 rounded-md text-sm font-medium'
+                                                'px-3 py-2 rounded-md text-sm font-GilroyMedium'
                                             )}
                                             aria-current={item.current ? 'page' : undefined}
                                         >
@@ -145,8 +145,8 @@ export default function Navbar() {
                                     as="a"
                                     href={item.href}
                                     className={classNames(
-                                        item.current ? 'bg-gray-900 text-white' : 'text-black hover:bg-gray-700 hover:text-white',
-                                        'block px-3 py-2 rounded-md text-base font-medium shadow-sm'
+                                        item.current ? 'bg-black text-white' : 'text-black hover:bg-gray-700 hover:text-white',
+                                        'block px-3 py-2 rounded-md text-base font-GilroyMedium shadow-sm border-black border-2'
                                     )}
                                     aria-current={item.current ? 'page' : undefined}
                                 >
@@ -160,8 +160,8 @@ export default function Navbar() {
                                     <img className="h-10 w-10 rounded-full" src={user.avatar_url} alt="" />
                                 </div>
                                 <div className="ml-3">
-                                    <div className="text-base font-medium text-black">{user.name}</div>
-                                    <div className="text-sm font-medium text-gray-400">{user.email}</div>
+                                    <div className="text-base font-GilroyMedium text-black">{user.name}</div>
+                                    <div className="text-sm font-GilroyMedium text-gray-500">{user.email}</div>
                                 </div>
                             </div>
                             <div className="mt-3 px-2 space-y-1 sm:px-3">
@@ -170,7 +170,7 @@ export default function Navbar() {
                                         key={item.name}
                                         as="a"
                                         href={item.href}
-                                        className="block px-3 py-2 rounded-md text-base font-medium text-black shadow-sm"
+                                        className="block px-3 py-2 rounded-md text-base font-GilroyMedium text-black shadow-sm border-black border-2"
                                     >
                                         {item.name}
                                     </Disclosure.Button>

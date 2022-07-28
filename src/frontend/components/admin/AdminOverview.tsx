@@ -1,6 +1,8 @@
 import { ExternalLinkIcon, PencilAltIcon, PencilIcon } from "@heroicons/react/outline";
+import { useRef } from "react";
 import { classNames } from "../../lib/design";
 import Button, { ButtonType } from "../general/Button";
+import EditSpecificTeamModal from "./EditSpecificTeamModal";
 
 export interface Label {
     [key: string]: string;
@@ -116,6 +118,8 @@ const teams: Array<AdminOverviewTeam> = [
 
 const AdminOverview = () => {
 
+    const editSpecificTeamModalRef = useRef()
+
 
     const handleOnClickEditClusterRoles = () => {
         console.log('handleOnClickEditClusterRoles')
@@ -125,14 +129,11 @@ const AdminOverview = () => {
         console.log('handleOnClickEditRoles')
     }
 
-    const handleSpecificEdit = (t: string) => {
-
-    }
-
     return (
         <div
-            className="absolute top-32 sm:left-1/2 sm:-translate-x-1/2  sm:w-4/6 w-full bg-opacity-90 sm:bg-white sm:rounded-lg sm:shadow-lg p-10"
+            className="sm:top-32  w-full bg-opacity-90 sm:bg-white sm:rounded-lg sm:shadow-lg p-10"
         >
+            <EditSpecificTeamModal ref={editSpecificTeamModalRef} />
             <div className="px-0 sm:px-6">
                 <div className="sm:flex sm:items-center">
                     <div className="sm:flex-auto">
@@ -258,8 +259,9 @@ const AdminOverview = () => {
                                     >
                                         <button
                                             type="button"
-                                            className="inline-flex items-center rounded-md border-2 border-primary bg-white px-4 py-2 text-sm font-medium leading-4 text-primary shadow-sm hover:bg-primary hover:text-white transition-all duration-150 ease "
-                                        // disabled={plan.isCurrent}
+                                            className="inline-flex items-center rounded-md border-2 border-primary bg-white px-4 py-2 text-sm font-GilroyMedium leading-4 text-primary shadow-sm hover:bg-primary hover:text-white transition-all duration-150 ease "
+                                            //@ts-ignore
+                                            onClick={() => editSpecificTeamModalRef.current.open()}
                                         >
                                             <PencilIcon className="h-5 w-5 inline-block" />
                                         </button>

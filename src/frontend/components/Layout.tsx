@@ -19,7 +19,8 @@ export default function Layout(props: any) {
 
             <main className={classNames(
                 user && !loading ? "pt-20" : "pt-0",
-                "transition-all duration-150 ease-in-out"
+                "transition-all duration-150 ease-in-out",
+                ""
             )}>
                 {React.cloneElement(props.children)}
             </main>
