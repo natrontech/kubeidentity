@@ -13,12 +13,10 @@ const teams = [
         cluster_roles: [
             {
                 metadata: {
-                    name: 'admins',
+                    name: 'cluster-admin',
                     labels: {
                         'kubeidentity.io/github-organization': 'natrongmbh',
-                        'kubeidentity.io/github-teams': [
-                            'admins'
-                        ]
+                        'kubeidentity.io/github-team': 'admins', 
                     }
                 },
                 rules: [
@@ -39,12 +37,10 @@ const teams = [
         roles: [
             {
                 metadata: {
-                    name: 'admins',
+                    name: 'kube-system-admin',
                     labels: {
                         'kubeidentity.io/github-organization': 'natrongmbh',
-                        'kubeidentity.io/github-teams': [
-                            'admins'
-                        ]
+                        'kubeidentity.io/github-team': 'admins',
                     },
                     namespace: 'kube-system'
                 },
@@ -83,7 +79,6 @@ const AdminOverview = () => {
         <div
             className="absolute top-32 sm:left-1/2 sm:-translate-x-1/2  sm:w-4/6 w-full bg-opacity-90 sm:bg-white sm:rounded-lg sm:shadow-lg p-10"
         >
-            {/* TODO add a view for each team of the organization where the admin can add predefined Cluster Role Bindings or apply them customly via yaml */}
             <div className="px-0 sm:px-6">
                 <div className="sm:flex sm:items-center">
                     <div className="sm:flex-auto">
@@ -178,16 +173,12 @@ const AdminOverview = () => {
                                         )}
                                     >
                                         {
-                                            // team.cluster_role_bindings.map((clusterRoleBinding, clusterRoleBindingIdx) => (
-                                            //     <div key={clusterRoleBindingIdx}>
-                                            //         <div className="flex items-center">
-                                            //             <div className="flex-shrink-0">
-                                            //                 {clusterRoleBinding.cluster_role_binding.cluster_role.name}
-                                            //                 {team.cluster_role_bindings.length != clusterRoleBindingIdx + 1 ? "," : null}
-                                            //             </div>
-                                            //         </div>
-                                            //     </div>
-                                            // ))
+                                            team.cluster_roles.map((clusterRole, clusterRoleIdx) => (
+                                                <div key={clusterRoleIdx}>
+                                                    <span className="text-gray-500">{clusterRole.metadata.name}</span>
+                                                    {clusterRoleIdx !== team.cluster_roles.length - 1 ? <span className="text-gray-500">,</span> : null}
+                                                </div>
+                                            ))
                                         }
                                     </td>
                                     <td
@@ -196,7 +187,14 @@ const AdminOverview = () => {
                                             'hidden px-3 py-3.5 text-sm text-gray-500 lg:table-cell'
                                         )}
                                     >
-
+                                        {
+                                            team.roles.map((role, roleIdx) => (
+                                                <div key={roleIdx}>
+                                                    <div className="text-gray-500">{role.metadata.name}{roleIdx !== team.roles.length - 1 ? <span className="text-gray-500">,</span> : null}</div>
+                                                    <div className="text-primary text-xs -mt-1">({role.metadata.name})</div>                                                    
+                                                </div>
+                                            ))
+                                        }
                                     </td>
                                     <td
                                         className={classNames(
