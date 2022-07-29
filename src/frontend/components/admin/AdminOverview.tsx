@@ -11,7 +11,7 @@ export interface Label {
 export interface ClusterRole {
     metadata: {
         name: string;
-        labels: Array<Label>;
+        labels: Label;
     },
     rules: [
         {
@@ -25,7 +25,7 @@ export interface ClusterRole {
 export interface Role {
     metadata: {
         name: string;
-        labels: Array<Label>;
+        labels: Label;
         namespace: string
     },
     rules: [
@@ -50,14 +50,10 @@ export interface AdminOverviewTeam {
 const sampleAdminClusterRole: ClusterRole = {
     metadata: {
         name: 'cluster-admin',
-        labels: [
-            {
-                'kubeidentity.io/github-organization': 'natrongmbh'
-            },
-            {
-                'kubeidentity.io/github-team': 'admins'
-            }
-        ]
+        labels: {
+            'kubeidentity.io/github-organization': 'natrongmbh',
+            'kubeidentity.io/github-team': 'admins'
+        }
     },
     rules: [
         {
@@ -77,14 +73,10 @@ const sampleAdminClusterRole: ClusterRole = {
 const sampleNamespaceAdminRole: Role = {
     metadata: {
         name: 'kube-system-admin',
-        labels: [
-            {
-                'kubeidentity.io/github-organization': 'natrongmbh'
-            },
-            {
-                'kubeidentity.io/github-team': 'admins'
-            }
-        ],
+        labels: {
+            'kubeidentity.io/github-organization': 'natrongmbh',
+            'kubeidentity.io/github-team': 'admins'
+        },
         namespace: 'kube-system'
     },
     rules: [
