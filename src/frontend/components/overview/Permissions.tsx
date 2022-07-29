@@ -29,13 +29,13 @@ const Permissions = () => {
                 }</span></p>
             </div>
             <div className="px-4 py-5 sm:p-0">
-                <div className="grid grid-cols-2 border-t">
+                <div className="grid sm:grid-cols-2 gap-4 border-t p-4">
                     {
                         user && !loading ?
 
                             // render user.teams array
                             user.github_team_slugs.map((github_team_slug: string) =>
-                                <div key={github_team_slug} className="py-4 font-GilroyMedium sm:px-6">
+                                <div key={github_team_slug} className="font-GilroyMedium">
                                     <div
                                         className={classNames(
                                             github_team_slug == "admins" ? " text-white bg-gradient-to-r from-primary to-secondary-dark" : "",

@@ -10,7 +10,7 @@ const { publicRuntimeConfig: config } = getConfig();
 
 const LoginForm = () => {
 
-    const { signInWithGithub, loading }: any = useUserContext();
+    const { signInWithGithub}: any = useUserContext();
 
     const handleGithubLogin = () => {
         window.open(
@@ -52,11 +52,7 @@ const LoginForm = () => {
                 <span
                     className="inline"
                 >
-                    <span
-                        className={classNames(
-                            loading ? "animate-spin" : "",
-                        )}
-                    >
+                    <span>
                         <GithubIcon color="white" width={26} height={26} />
                     </span> Continue with Github
                 </span>
