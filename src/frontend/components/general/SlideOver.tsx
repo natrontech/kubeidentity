@@ -2,7 +2,7 @@ import { forwardRef, Fragment, useEffect, useImperativeHandle, useState } from '
 import { Dialog, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 
-const SlideOver = ({children, title, isOpen}: any) => {
+const SlideOver = ({ children, title, isOpen, setIsOpen }: any) => {
 
     const [open, setOpen] = useState(false)
 
@@ -14,7 +14,7 @@ const SlideOver = ({children, title, isOpen}: any) => {
 
     return (
         <Transition.Root show={open} as={Fragment}>
-            <Dialog as="div" className="relative z-50" onClose={setOpen}>
+            <Dialog as="div" className="relative z-50" onClose={setIsOpen}>
                 <div className="fixed inset-0" />
 
                 <div className="fixed inset-0 overflow-hidden">
@@ -33,25 +33,26 @@ const SlideOver = ({children, title, isOpen}: any) => {
                                     <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
                                         <div className="px-4 sm:px-6">
                                             <div className="flex items-start justify-between">
-                                                <Dialog.Title className="text-lg font-medium text-gray-900"> {title} </Dialog.Title>
+                                                <Dialog.Title className="text-lg font-GilroyMedium text-gray-900"> {title} </Dialog.Title>
                                                 <div className="ml-3 flex h-7 items-center">
                                                     <button
                                                         type="button"
                                                         className="rounded-md bg-white text-gray-400 hover:text-gray-500 2"
-                                                        onClick={() => setOpen(false)}
+                                                        onClick={() => setIsOpen(false)}
                                                     >
                                                         <span className="sr-only">Close panel</span>
-                                                        <XIcon className="h-6 w-6" aria-hidden="true" />
+                                                        <XIcon
+                                                            className=" m-2 h-7 w-7 cursor-pointer sm:hover:scale-105 transition-all duration-150 ease-in-out"
+                                                            aria-hidden="true"
+                                                        />
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                                            {/* Replace with your content */}
                                             <div className="absolute inset-0 px-4 sm:px-6">
                                                 {children}
                                             </div>
-                                            {/* /End replace */}
                                         </div>
                                     </div>
                                 </Dialog.Panel>

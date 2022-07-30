@@ -84,6 +84,7 @@ const sampleNamespaceAdminRoles: Array<Role> = [
             name: 'kube-system-admin2',
             labels: {
                 'kubeidentity.io/github-organization': 'natrongmbh',
+                'kubeidentity.io/github-team': 'admins'
             },
             namespace: 'kube-system'
         },
@@ -127,23 +128,25 @@ const sampleNamespaceAdminRoles: Array<Role> = [
 
 const EditSpecificTeamModal = forwardRef((props: any, ref) => {
 
+    // TODO implement data passing from AdminOverview
+
     EditSpecificTeamModal.displayName = "EditSpecificTeamModal";
 
     const [isOpen, setIsOpen] = useState(false);
+    const [openSlideOver, setOpenSlideOver] = useState(false);
 
     const [team, setTeam] = useState<AdminOverviewTeam>();
-
     const [query, setQuery] = useState('')
 
-    const [openSlideOver, setOpenSlideOver] = useState(false)
+    const [clickedClusterRole, setClickedClusterRole] = useState<ClusterRole>();
+    const [clickedRole, setClickedRole] = useState<Role>();
 
     useImperativeHandle(ref, () => ({
         open: (teamProp: AdminOverviewTeam) => {
-            setIsOpen(!isOpen);
+            setIsOpen(true);
             setTeam(teamProp);
         }
     }));
-
 
     const [selectedRole, setSelectedRole] = useState<Role>()
 
@@ -170,19 +173,12 @@ const EditSpecificTeamModal = forwardRef((props: any, ref) => {
                 return filteredRole.metadata.name.toLowerCase().includes(query.toLowerCase())
             })
 
-    const handleAssignRole = (role: Role) => {
-        console.log(role)
-    }
-
-
-
     const [selectedClusterRole, setSelectedClusterRole] = useState<ClusterRole>()
 
     const notAssignedClusterRoles = sampleAdminClusterRoles.filter((sampleAdminClusterRole) => {
         // check if label 'kubeidentity.io/github-team' exists and has not value of team.name
         if (team) {
             //@ts-ignore
-            console.log(sampleAdminClusterRole.metadata.labels['kubeidentity.io/github-team'])
             return sampleAdminClusterRole.metadata.labels['kubeidentity.io/github-team'] != team.slug
         }
     })
@@ -202,16 +198,34 @@ const EditSpecificTeamModal = forwardRef((props: any, ref) => {
                 return sampleAdminClusterRole.metadata.name.toLowerCase().includes(query.toLowerCase())
             })
 
-    const handleAssignClusterRole = (clusterRole: ClusterRole) => {
-        console.log(clusterRole)
-    }
-
     return (
 
         <Modal
             isOpen={isOpen}
+            setIsOpen={setIsOpen}
             title={team && `Edit ${team.name}`}
         >
+
+            <SlideOver isOpen={openSlideOver} setIsOpen={setOpenSlideOver} title="lol">
+                
+                {/* TODO fix slideover, data is not passed correctly */}
+                <div>
+                    <p>
+                        You can see the role&apos;s rules here.
+                    </p>
+                    <h1
+                        className=" text-gray-500 text-xs font-GilroyMedium"
+                    >
+                        JSON Data:
+                    </h1>
+                    <div
+                        className="bg-gray-100 text-sm rounded-lg p-4 overflow-y-scroll scrollbar-hide"
+                    >
+                        {/* present assignedRole data as json */}
+                        {/* <pre>{JSON.stringify(assginedRole, null, 2)}</pre> */}
+                    </div>
+                </div>
+            </SlideOver>
             <div
                 className="flex-row items-center justify-center p-4 sm:px-48"
             >
@@ -277,7 +291,9 @@ const EditSpecificTeamModal = forwardRef((props: any, ref) => {
                             </div>
                         </Combobox>
 
-                        <Button buttonType={ButtonType.Primary} buttonText="Add" />
+                        <Button buttonType={ButtonType.Primary} buttonText="Add" onClick={() => {
+                            // TODO handle add cluster role api call
+                        }} />
                     </div>
 
                     <hr
@@ -288,8 +304,11 @@ const EditSpecificTeamModal = forwardRef((props: any, ref) => {
                         <h2 className="text-gray-500 text-xs font-medium tracking-wide">Assigned</h2>
                         <ul role="list" className="mt-3 flex gap-5 flex-row flex-wrap">
                             {assginedClusterRoles.map((assginedClusterRole) => (
-                                <li key={assginedClusterRole.metadata.name} className="relative flex sm:w-auto w-full shadow-sm border-2 rounded-md">
-
+                                <li
+                                    key={assginedClusterRole.metadata.name}
+                                    className="relative flex sm:w-auto w-full shadow-sm border-2 rounded-md cursor-pointer"
+                                    onClick={() => setOpenSlideOver(!openSlideOver)}
+                                >
                                     <div className="flex items-center justify-between ">
                                         <div className="flex-1 px-4 py-2 text-sm truncate pr-10">
                                             <p className="text-gray-900 font-medium hover:text-gray-600">
@@ -376,7 +395,7 @@ const EditSpecificTeamModal = forwardRef((props: any, ref) => {
                         </Combobox>
 
                         <Button buttonType={ButtonType.Primary} buttonText="Add" onClick={() => {
-                            console.log(selectedRole)
+                            // TODO handle add role api call
                         }} />
                     </div>
 
@@ -392,10 +411,6 @@ const EditSpecificTeamModal = forwardRef((props: any, ref) => {
                                     className="relative flex sm:w-auto w-full cursor-pointer shadow-sm border-2 rounded-md"
                                     onClick={() => setOpenSlideOver(!openSlideOver)}
                                 >
-                                    <SlideOver isOpen={openSlideOver} title={assginedRole.metadata.name}>
-
-                                    </SlideOver>
-
                                     <div className="flex items-center justify-between ">
                                         <div className="flex-1 px-4 py-2 text-sm truncate pr-10">
                                             <p className="text-gray-900 font-medium hover:text-gray-600">

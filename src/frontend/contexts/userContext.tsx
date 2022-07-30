@@ -82,7 +82,6 @@ export const UserContextProvider = ({ children }: Props) => {
                     github_organization: data.githubUser.github_organization,
                     is_admin: data.githubUser.is_admin
                 };
-                console.log(tempUser);
                 setUser(tempUser);
                 Cookies.set("token", data.token);
                 Api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
