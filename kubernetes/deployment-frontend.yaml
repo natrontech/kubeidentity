@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: kubeidentity-frontend:local
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        env:
+          - name: ENV_GITHUB_CLIENT_ID
+            value: "" # requried
+          - name: ENV_GITHUB_REDIRECT_URI
+            value: "" # requried
+          - name: ENV_GITHUB_OAUTH_URI
+            value: "" # requried
+        ports:
+        - containerPort: 3000
+          name: http

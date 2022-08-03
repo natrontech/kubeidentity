@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      serviceAccountName: kubeidentity-admin
+      containers:
+      - name: backend
+        image: kubeidentity-backend:local
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        env:
+          - name: CORS
+            value: "*"
+          - name: JWT_SECRET
+            value: ""
+          - name: GITHUB_CLIENT_ID
+            value: ""
+          - name: GITHUB_CLIENT_SECRET
+            value: ""
+          - name: GITHUB_ORGANIZATION
+            value: ""
+          - name: KUBEIDENTITY_NAMESPACE
+            value: ""
+          - name: DEFAULT_CLUSTER_ROLE
+            value: ""
+        ports:
+        - containerPort: 8000
+          name: http

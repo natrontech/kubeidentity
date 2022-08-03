@@ -52,14 +52,20 @@
 <p>&nbsp;</p>
 
 ## Everything you would expect
+
 ### It's a simple web app
 
-*tbd.*
+You can deploy it inside your Kubernetes cluster.  
+Make sure to create a Github OAuth client in your GitHub organization.  
+It will be used to authenticate your users.  
+The web app will then show you the list of teams you are a member of.  
+When you sign in, it will automatically create a Service Account (default namespace: kubeidentity) for you.
+And it will create RBAC rules for you (default cluster role binding: edit).
 
 ### It's free
 
 Everything is free.  
-If you want to support us, you can buy us a beer with a Github Sponsorship.
+If you want to support us, you can buy us a beer with a Github Sponsorship or contribute some code.
 
 ### Open Source
 
@@ -73,7 +79,10 @@ License: Apache 2.0
 
 ## Setup
 
-*tbd.*
+You can deploy KubeIdentity in your Kubernetes cluster, but you have to set all the env variables.
+
+- [kubernetes-example](/kubernetes/)
+
 
 ### Environment Variables
 
