@@ -14,7 +14,7 @@ spec:
       serviceAccountName: kubeidentity-admin
       containers:
       - name: backend
-        image: kubeidentity-backend:local
+        image: ghcr.io/natrongmbh/kubeidentity-backend:latest
         resources:
           limits:
             memory: "128Mi"
