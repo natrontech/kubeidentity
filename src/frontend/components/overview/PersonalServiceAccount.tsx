@@ -1,5 +1,5 @@
 import { Listbox, Transition } from "@headlessui/react";
-import { CheckIcon, DocumentTextIcon, FingerPrintIcon, IdentificationIcon, KeyIcon, LinkIcon, SelectorIcon, UserAddIcon, UserIcon } from "@heroicons/react/outline";
+import { CheckIcon, ClipboardIcon, DocumentTextIcon, DownloadIcon, FingerPrintIcon, IdentificationIcon, KeyIcon, LinkIcon, SelectorIcon, UserAddIcon, UserIcon } from "@heroicons/react/outline";
 import { Fragment, useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import Api from "../../config/Api";
@@ -87,7 +87,7 @@ const PersonalServiceAccount = () => {
                                         <div
                                             className="mb-5"
                                         >
-                                            <Button buttonType={ButtonType.PrimaryOutline} widthString="w-72" buttonText="Copy Personal Access Token" buttonIcon={<KeyIcon className="h-5 inline" />} onClick={() => {
+                                            <Button buttonType={ButtonType.PrimaryOutline} widthString="w-72" buttonText="Personal Access Token" buttonIcon={<ClipboardIcon className="h-5 inline" />} onClick={() => {
                                                 // copy personalServiceAccount.token to clipboard
                                                 navigator.clipboard.writeText(personalServiceAccount.token);
                                                 DefaultAlertMessage("Success", "Personal Service Account Token copied to clipboard", AlertType.Success);
@@ -95,11 +95,19 @@ const PersonalServiceAccount = () => {
                                         </div>
 
                                         <div>
-                                            <Button buttonType={ButtonType.PrimaryOutline} widthString="w-72" buttonText="Copy Kubeconfig" buttonIcon={<DocumentTextIcon className="h-5 inline" />} onClick={() => {
-                                                // copy personalServiceAccount.token to clipboard
+                                            <Button buttonType={ButtonType.PrimaryOutline} widthString="w-72" buttonText="Kubeconfig" buttonIcon={<DownloadIcon className="h-5 inline" />} onClick={() => {
+                                                // download kubeconfig
+                                                const kubeconfig: string = createKubeConfig(personalServiceAccount.ca, clusterInfo.clusterApi, personalServiceAccount.name, personalServiceAccount.token)
                                                 
-                                                navigator.clipboard.writeText(createKubeConfig(personalServiceAccount.ca, clusterInfo.clusterApi, personalServiceAccount.name, personalServiceAccount.token));
-                                                DefaultAlertMessage("Success", "Kubeconfig copied to clipboard", AlertType.Success);
+                                                const blob = new Blob([kubeconfig], { type: "text/plain;charset=utf-8" });
+                                                const url = URL.createObjectURL(blob);
+                                                const link = document.createElement("a");
+                                                link.href = url;
+                                                link.download = "kubeconfig.yaml";
+                                                link.click();
+                                                URL.revokeObjectURL(url);
+
+                                                DefaultAlertMessage("Success", "Kubeconfig downloaded", AlertType.Success);
                                             }} />
                                         </div>
                                     </div>

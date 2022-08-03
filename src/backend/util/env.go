@@ -20,6 +20,11 @@ func LoadEnv() error {
 		CORS = "*"
 	}
 
+	if JWT_SECRET_KEY = os.Getenv("JWT_SECRET_KEY"); JWT_SECRET_KEY == "" {
+		JWT_SECRET_KEY = RandomStringBytes(32)
+		InfoLogger.Println("JWT_SECRET_KEY not set, defaulting to random string of length 32: " + JWT_SECRET_KEY)
+	}
+
 	if GITHUB_CALLBACK_URL = os.Getenv("GITHUB_CALLBACK_URL"); GITHUB_CALLBACK_URL == "" {
 		WarningLogger.Println("GITHUB_CALLBACK_URL not set")
 		GITHUB_CALLBACK_URL = "http://localhost:8000/auth/github/callback"
@@ -43,8 +48,8 @@ func LoadEnv() error {
 	}
 
 	if DefaultClusterRole = os.Getenv("DEFAULT_CLUSTER_ROLE"); DefaultClusterRole == "" {
-		InfoLogger.Println("DEFAULT_CLUSTER_ROLE not set, defaulting to 'cluster-admin'")
-		DefaultClusterRole = "cluster-admin"
+		InfoLogger.Println("DEFAULT_CLUSTER_ROLE not set, defaulting to 'edit'")
+		DefaultClusterRole = "edit"
 	}
 
 	return nil

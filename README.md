@@ -77,8 +77,26 @@ License: Apache 2.0
 
 ### Environment Variables
 
-- `ENV_GITHUB_CLIENT_ID`
-- `ENV_GITHUB_REDIRECT_URI`
-- `ENV_GITHUB_OAUTH_URI`
+#### Frontend
+
+- `ENV_GITHUB_CLIENT_ID` (required): Set the GitHub client ID.
+- `ENV_GITHUB_REDIRECT_URI` (required): Set the GitHub redirect URI. (e.g. `https://<url-from-frontend>`)
+- `ENV_GITHUB_OAUTH_URI` (required): Set the GitHub OAuth URI. (e.g. `https://<url-from-backend>/api/auth/github`)
+
+#### Backend
+
+- `CORS` (optional): Set CORS headers for the API.  
+  Default: `*`
+- `JWT_SECRET_KEY` (optional): Set the JWT secret key.  
+  Default: random string of 32 characters.
+- `GITHUB_CALLBACK_URL` (optional): Set the callback URL for the GitHub OAuth.  
+  Default: `http://localhost:8000/auth/github/callback`
+- `GITHUB_CLIENT_ID` (required): Set the GitHub client ID.
+- `GITHUB_CLIENT_SECRET` (required): Set the GitHub client secret.
+- `GITHUB_ORGANIZATION` (required): Set the GitHub organization.
+- `KUBEIDENTITY_NAMESPACE` (optional): Set the Kubernetes namespace, where the Service Accounts will be created. (it will be created if it doesn't exist)  
+  Default: `kubeidentity`
+- `DEFAULT_CLUSTER_ROLE` (optional): Set the default cluster role which gets assigned to every ServiceAccount.  
+  Default: `edit`
 
 *tbd.*
