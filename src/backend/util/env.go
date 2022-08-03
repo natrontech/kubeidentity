@@ -6,9 +6,10 @@ import (
 )
 
 var (
-	err             error
-	CORS            string
-	ConfigNamespace string
+	err                error
+	CORS               string
+	ConfigNamespace    string
+	DefaultClusterRole string
 )
 
 // LoadEnv loads OS environment variables
@@ -39,6 +40,11 @@ func LoadEnv() error {
 	if ConfigNamespace = os.Getenv("KUBEIDENTITY_NAMESPACE"); ConfigNamespace == "" {
 		InfoLogger.Println("KUBEIDENTITY_NAMESPACE not set, defaulting to 'kubeidentity'")
 		ConfigNamespace = "kubeidentity"
+	}
+
+	if DefaultClusterRole = os.Getenv("DEFAULT_CLUSTER_ROLE"); DefaultClusterRole == "" {
+		InfoLogger.Println("DEFAULT_CLUSTER_ROLE not set, defaulting to 'cluster-admin'")
+		DefaultClusterRole = "cluster-admin"
 	}
 
 	return nil

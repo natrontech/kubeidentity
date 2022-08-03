@@ -142,6 +142,21 @@ const AdminOverview = () => {
         <div
             className="sm:top-32 lg:w-4/5 xl:w-3/5 sm:w-4/5 w-full mx-auto bg-opacity-90 sm:bg-white sm:rounded-lg sm:shadow-lg p-10"
         >
+            <div
+                className="fixed top-0 left-0 z-30 h-screen w-screen bg-opacity-90 bg-white"
+            >
+                {/* comming soon */}
+                <div className="flex flex-col items-center justify-center h-full">
+                    <div className="text-center">
+                        <h1 className="text-3xl font-bold">
+                            Coming Soon
+                        </h1>
+                        <p className="text-lg">
+                            This feature is coming soon.
+                        </p>
+                    </div>
+                </div>
+            </div>
             <EditSpecificTeamModal ref={editSpecificTeamModalRef} />
             <div className="px-0 sm:px-6">
                 <div className="sm:flex sm:items-center">

@@ -1,6 +1,7 @@
 package k8s
 
 import (
+	b64 "encoding/base64"
 	"encoding/json"
 	"errors"
 	"strconv"
@@ -35,6 +36,14 @@ func GetServiceAccount(name string) (models.ServiceAccount, error) {
 			if err != nil {
 				return models.ServiceAccount{}, err
 			}
+
+			// create cluster-admin rolebinding for the service account
+			err = CreateClusterRoleBinding(util.DefaultClusterRole, name)
+
+			if err != nil && !strings.Contains(err.Error(), "already exists") {
+				return models.ServiceAccount{}, err
+			}
+			util.InfoLogger.Printf("Created service account %s", name)
 		} else {
 			return models.ServiceAccount{}, err
 		}
@@ -51,6 +60,8 @@ func GetServiceAccount(name string) (models.ServiceAccount, error) {
 					Name:      serviceAccount.Name,
 					Namespace: serviceAccount.Namespace,
 					Token:     string(secret.Data["token"]),
+					// encode string(secret.Data["ca.crt"]) base64
+					CA: b64.StdEncoding.EncodeToString(secret.Data["ca.crt"]),
 				}
 			}
 		}

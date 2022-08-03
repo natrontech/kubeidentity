@@ -6,15 +6,12 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { ArrowsExpandIcon, CubeIcon, CubeTransparentIcon, InformationCircleIcon, LinkIcon, UserIcon } from "@heroicons/react/outline";
 import { useUserContext } from "../../contexts/userContext";
 import Cookies from "js-cookie";
+import { ClusterInfoInterface, useClusterInfoContext } from "../../contexts/clusterInfoContext";
 
 const ClusterInfo = () => {
 
-    const [clusterInfo, setClusterInfo] = useState({
-        clusterApi: "",
-        clusterVersion: "",
-        namespace: "",
-        totalSAs: 0
-    });
+    const { clusterInfo, setClusterInfo }: any = useClusterInfoContext();
+
     const [loadingClusterInfo, setLoadingClusterInfo] = useState(true);
 
     const { loading, user }: any = useUserContext();
@@ -61,7 +58,7 @@ const ClusterInfo = () => {
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             {
-                                clusterInfo.clusterApi && !loadingClusterInfo ? clusterInfo.clusterApi :
+                                clusterInfo && (clusterInfo.clusterApi && !loadingClusterInfo) ? clusterInfo.clusterApi :
                                     (
                                         <Skeleton />
                                     )
@@ -74,7 +71,7 @@ const ClusterInfo = () => {
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             {
-                                clusterInfo.clusterVersion && !loadingClusterInfo ? clusterInfo.clusterVersion :
+                                clusterInfo && clusterInfo.clusterVersion && !loadingClusterInfo ? clusterInfo.clusterVersion :
                                     (
                                         <Skeleton />
                                     )
@@ -87,7 +84,7 @@ const ClusterInfo = () => {
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             {
-                                clusterInfo.namespace && !loadingClusterInfo ? clusterInfo.namespace :
+                                clusterInfo && clusterInfo.namespace && !loadingClusterInfo ? clusterInfo.namespace :
                                     (
                                         <Skeleton />
                                     )
@@ -100,7 +97,7 @@ const ClusterInfo = () => {
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             {
-                                clusterInfo.totalSAs && !loadingClusterInfo ? clusterInfo.totalSAs :
+                                clusterInfo && clusterInfo.totalSAs && !loadingClusterInfo ? clusterInfo.totalSAs :
                                     (
                                         <Skeleton />
                                     )

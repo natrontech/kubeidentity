@@ -4,16 +4,19 @@ import type { AppProps } from 'next/app'
 import Layout from '../components/Layout'
 import { UserContextProvider } from '../contexts/userContext'
 import { PersonalServiceAccountContextProvider } from '../contexts/personalServiceAccountContext'
+import { ClusterInfoContextProvider } from '../contexts/clusterInfoContext'
 
 function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <UserContextProvider>
-      <PersonalServiceAccountContextProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </PersonalServiceAccountContextProvider>
+      <ClusterInfoContextProvider>
+        <PersonalServiceAccountContextProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </PersonalServiceAccountContextProvider>
+      </ClusterInfoContextProvider>
     </UserContextProvider>
   )
 }

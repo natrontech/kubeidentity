@@ -15,18 +15,21 @@ export default function Navbar() {
 
     let navigation = [
         { name: 'Overview', href: '/overview', current: router.pathname === '/overview', icon: <TemplateIcon className="h-5 w-5 inline" /> },
-        { name: 'Apps', href: '/apps', current: router.pathname === '/apps', icon: <DesktopComputerIcon className="h-5 w-5 inline" /> },
+        // TODO: add this back in when we have the feature
+        // { name: 'Apps', href: '/apps', current: router.pathname === '/apps', icon: <DesktopComputerIcon className="h-5 w-5 inline" /> },
     ]
 
     // add item to navigation if user is admin
-    if (user && !loading && user.is_admin) {
-        navigation.push({ name: 'Admin', href: '/admin', current: router.pathname === '/admin', icon: <StarIcon className="h-5 w-5 inline" /> })
-    }
+    // TODO add admin check to user context
+    // if (user && !loading && user.is_admin) {
+    //     navigation.push({ name: 'Admin', href: '/admin', current: router.pathname === '/admin', icon: <StarIcon className="h-5 w-5 inline" /> })
+    // }
 
 
 
     const userNavigation = [
-        { name: 'Settings', href: '/settings' },
+        // TODO: add this back in when we have the feature
+        // { name: 'Settings', href: '/settings' },
         { name: 'Sign out', href: '/logout' },
     ]
 

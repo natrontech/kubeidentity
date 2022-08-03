@@ -15,6 +15,7 @@ export interface PersonalServiceAccountInterface {
     name: string;
     namespace: string;
     token: string;
+    ca: string;
 }
 
 export const PersonalServiceAccountContextProvider = ({ children }: Props) => {
