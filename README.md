@@ -41,7 +41,7 @@
 
 <p align="center">
   <em>
-    Check out the company behind KuberPerm – 
+    Check out the company behind KubeIdentity – 
     <a
       href="https://natron.io/"
     >https://natron.io</a>
@@ -61,6 +61,7 @@ It will be used to authenticate your users.
 The web app will then show you the list of teams you are a member of.  
 When you sign in, it will automatically create a Service Account (default namespace: kubeidentity) for you.
 And it will create RBAC rules for you (default cluster role binding: edit).
+After that, you can copy the Token or download the Kubeconfig file.
 
 ### It's free
 
