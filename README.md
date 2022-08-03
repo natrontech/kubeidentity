@@ -107,5 +107,3 @@ You can deploy KubeIdentity in your Kubernetes cluster, but you have to set all 
   Default: `kubeidentity`
 - `DEFAULT_CLUSTER_ROLE` (optional): Set the default cluster role which gets assigned to every ServiceAccount.  
   Default: `edit`
-
-*tbd.*
