@@ -10,7 +10,7 @@
 <p align="center">
   <strong>
     A <br />
-    <a href="https://beer.gigu.io/">OAuth Connector</a>
+    <a href="https://github.com/natrongmbh/kubeidentity">OAuth Connector</a>
     <br />
     for handling GitHub OAuth in your Kubernets cluster.
   </strong>
