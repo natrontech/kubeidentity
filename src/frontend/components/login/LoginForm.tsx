@@ -3,8 +3,6 @@ import { useUserContext } from "../../contexts/userContext"
 import { GithubIcon } from "../../lib/Icons";
 import getConfig from "next/config";
 import Image from "next/image";
-import env from "@beam-australia/react-env";
-import { classNames } from "../../lib/design";
 
 const { publicRuntimeConfig: config } = getConfig();
 
