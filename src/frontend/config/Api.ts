@@ -1,12 +1,15 @@
 import Axios from 'axios';
 import Cookies from 'js-cookie';
+import getConfig from 'next/config';
+
+const { publicRuntimeConfig: config } = getConfig();
 
 let version = 'v1';
 
 let urls = {
     test: 'http://localhost:8000/api/' + version, // test on kubernetes kind cluster locally
     development: 'http://localhost:8000/api/' + version, // local development
-    production: 'http://localhost:8000/api/' + version, // production
+    production: config.ENV_API_URI + version, // production
 }
 
 let Api = Axios.create({
