@@ -205,11 +205,6 @@ func CheckAuth(c *fiber.Ctx) (models.GithubUser, error) {
 		}
 	}
 
-	if claims["github_team_slugs"] == nil {
-		util.WarningLogger.Printf("IP %s is not authorized", c.IP())
-		return models.GithubUser{}, errors.New("Invalid bearer token")
-	}
-
 	var githubTeamSlugs []string
 	for _, githubTeam := range claims["github_team_slugs"].([]interface{}) {
 		githubTeamSlugs = append(githubTeamSlugs, githubTeam.(string))
