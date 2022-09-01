@@ -8,8 +8,8 @@ on:
 
 jobs:
 
-  build:
-    name: Build
+  backend-build:
+    name: Backend Build
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -34,5 +34,22 @@ jobs:
       run: | 
         cd ./src/backend
         go build -v .
-    # - name: Test
-    #   run: go test -v ./...
+  frontend-build:
+    name: Frontend Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: install yarn
+        run: |
+          npm install -g yarn
+      - uses: actions/checkout@v1
+      - name: yarn install
+        run: |
+          cd ./src/frontend
+          yarn install
+      - name: build
+        run: |
+          cd ./src/frontend
+          yarn build

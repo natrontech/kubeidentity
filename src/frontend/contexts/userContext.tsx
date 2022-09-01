@@ -94,6 +94,7 @@ export const UserContextProvider = ({ children }: Props) => {
                 setLoading(false);
                 setError(response);
                 setUser(null);
+                DefaultAlertMessage("Error", response.data !== undefined ? response.data.message : "Something went wrong", AlertType.Error);
                 Cookies.remove("token");
             }).finally(() => {
                 setLoading(false);
