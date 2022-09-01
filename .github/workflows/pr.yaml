@@ -34,7 +34,6 @@ jobs:
       run: | 
         cd ./src/backend
         go build -v .
-  
   frontend-build:
     name: Frontend Build
     runs-on: ubuntu-latest
