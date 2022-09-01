@@ -85,11 +85,8 @@ func LoggedIn(c *fiber.Ctx, githubCode string) error {
 
 	var githubTeamsDataMap []map[string]interface{}
 	if err := json.Unmarshal([]byte(githubTeamsData), &githubTeamsDataMap); err != nil {
-		return c.Status(500).JSON(fiber.Map{
-			"message":       "Internal server error",
-			"error":         err.Error(),
-			"github_mesage": githubTeamsData,
-		})
+		util.ErrorLogger.Printf("Error unmarshalling github teams data: %s", err)
+		githubTeamsDataMap = []map[string]interface{}{}
 	}
 
 	var githubUserDataMap map[string]interface{}
@@ -103,10 +100,12 @@ func LoggedIn(c *fiber.Ctx, githubCode string) error {
 	var githubTeamSlugs []string
 	temp_is_admin := false
 
-	for _, githubTeam := range githubTeamsDataMap {
-		githubTeamSlugs = append(githubTeamSlugs, githubTeam["slug"].(string))
-		if githubTeam["slug"].(string) == "admins" {
-			temp_is_admin = true
+	if len(githubTeamsDataMap) > 0 {
+		for _, githubTeam := range githubTeamsDataMap {
+			githubTeamSlugs = append(githubTeamSlugs, githubTeam["slug"].(string))
+			if githubTeam["slug"].(string) == "admins" {
+				temp_is_admin = true
+			}
 		}
 	}
 
