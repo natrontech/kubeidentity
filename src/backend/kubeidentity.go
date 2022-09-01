@@ -8,6 +8,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/natrongmbh/kubeidentity/k8s"
 	"github.com/natrongmbh/kubeidentity/routes"
 	"github.com/natrongmbh/kubeidentity/util"
@@ -106,6 +107,11 @@ func main() {
 		AllowMethods:     "GET,POST,PUT,DELETE,OPTIONS",
 		AllowCredentials: true,
 		AllowOrigins:     util.CORS,
+	}))
+
+	app.Use(logger.New(logger.Config{
+		TimeFormat: "2006/01/02 - 15:04:05",
+		TimeZone:   "Europe/Zurich",
 	}))
 
 	routes.Setup(app)
