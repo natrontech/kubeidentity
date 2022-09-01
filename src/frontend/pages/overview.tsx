@@ -30,11 +30,11 @@ const Dashboard: NextPage = () => {
                 >
                     <PersonalServiceAccount />
                 </div>
-                <div
+                {/* <div
                     className="w-full"
                 >
                     <Permissions />
-                </div>
+                </div> */}
             </div>
         </div>
     )
