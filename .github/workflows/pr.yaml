@@ -47,7 +47,9 @@ jobs:
       - uses: actions/checkout@v1
       - name: yarn install
         run: |
+          cd ./src/frontend
           yarn install
       - name: build
         run: |
+          cd ./src/frontend
           yarn build
