@@ -206,8 +206,10 @@ func CheckAuth(c *fiber.Ctx) (models.GithubUser, error) {
 	}
 
 	var githubTeamSlugs []string
-	for _, githubTeam := range claims["github_team_slugs"].([]interface{}) {
-		githubTeamSlugs = append(githubTeamSlugs, githubTeam.(string))
+	if claims["github_team_slugs"] != nil {
+		for _, githubTeam := range claims["github_team_slugs"].([]interface{}) {
+			githubTeamSlugs = append(githubTeamSlugs, githubTeam.(string))
+		}
 	}
 
 	// return claims map as json
