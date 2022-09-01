@@ -85,8 +85,14 @@ func LoggedIn(c *fiber.Ctx, githubCode string) error {
 
 	var githubTeamsDataMap []map[string]interface{}
 	if err := json.Unmarshal([]byte(githubTeamsData), &githubTeamsDataMap); err != nil {
+		// githubTeamsData contains "message": "Bad credentials"
+		if strings.Contains(githubTeamsData, "Bad credentials") {
+			return c.Status(500).JSON(fiber.Map{
+				"status":  "error",
+				"message": "Bad credentials",
+			})
+		}
 		util.ErrorLogger.Printf("Error unmarshalling github teams data: %s", err)
-		githubTeamsDataMap = []map[string]interface{}{}
 	}
 
 	var githubUserDataMap map[string]interface{}
