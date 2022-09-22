@@ -93,6 +93,9 @@ func LoggedIn(c *fiber.Ctx, githubCode string) error {
 			})
 		}
 		util.ErrorLogger.Printf("Error unmarshalling github teams data: %s", err)
+
+		// fill githubTeamsDataMap with empty map
+		githubTeamsDataMap = append(githubTeamsDataMap, map[string]interface{}{})
 	}
 
 	var githubUserDataMap map[string]interface{}
@@ -115,21 +118,29 @@ func LoggedIn(c *fiber.Ctx, githubCode string) error {
 		}
 	}
 
-	// check if githubUserDataMap["name"].(string) is not nil
-	if githubUserDataMap["name"] == nil {
-		githubUserDataMap["name"] = githubUserDataMap["login"]
+	ghLogin, ok := githubUserDataMap["login"].(string)
+	if !ok {
+		return c.Status(500).JSON(fiber.Map{
+			"message": "Internal server error",
+			"error":   "github login is not a string",
+		})
 	}
 
-	// check if email is not nil
-	if githubUserDataMap["email"] == nil {
-		githubUserDataMap["email"] = ""
+	ghName, ok := githubUserDataMap["name"].(string)
+	if !ok {
+		ghName = ghLogin
+	}
+
+	ghEmail, ok := githubUserDataMap["email"].(string)
+	if !ok {
+		ghEmail = ""
 	}
 
 	githubUser := models.GithubUser{
 		ID:                 githubUserDataMap["id"].(float64),
-		Login:              githubUserDataMap["login"].(string),
-		Email:              githubUserDataMap["email"].(string),
-		Name:               githubUserDataMap["name"].(string),
+		Login:              ghLogin,
+		Email:              ghEmail,
+		Name:               ghName,
 		AvatarURL:          githubUserDataMap["avatar_url"].(string),
 		GithubTeamSlugs:    githubTeamSlugs,
 		GithubAccessToken:  githubAccessToken,
