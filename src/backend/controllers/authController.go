@@ -120,6 +120,11 @@ func LoggedIn(c *fiber.Ctx, githubCode string) error {
 		githubUserDataMap["name"] = githubUserDataMap["login"]
 	}
 
+	// check if email is not nil
+	if githubUserDataMap["email"] == nil {
+		githubUserDataMap["email"] = ""
+	}
+
 	githubUser := models.GithubUser{
 		ID:                 githubUserDataMap["id"].(float64),
 		Login:              githubUserDataMap["login"].(string),
@@ -220,6 +225,11 @@ func CheckAuth(c *fiber.Ctx) (models.GithubUser, error) {
 	// check if claims["name"] is not nil
 	if claims["name"] == nil {
 		claims["name"] = claims["login"]
+	}
+
+	// check if claims["email"] is not nil
+	if claims["email"] == nil {
+		claims["email"] = ""
 	}
 
 	// return claims map as json
