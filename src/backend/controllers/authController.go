@@ -120,6 +120,11 @@ func LoggedIn(c *fiber.Ctx, githubCode string) error {
 		githubUserDataMap["name"] = githubUserDataMap["login"]
 	}
 
+	// check if email is not nil
+	if githubUserDataMap["email"] == nil {
+		githubUserDataMap["email"] = ""
+	}
+
 	githubUser := models.GithubUser{
 		ID:                 githubUserDataMap["id"].(float64),
 		Login:              githubUserDataMap["login"].(string),
@@ -169,12 +174,12 @@ func CheckAuth(c *fiber.Ctx) (models.GithubUser, error) {
 	if len(bearerTokenSplit) == 2 {
 		tokenString = bearerTokenSplit[1]
 	} else {
-		return models.GithubUser{}, errors.New("Invalid bearer token")
+		return models.GithubUser{}, errors.New("invalid bearer token")
 	}
 
 	if tokenString == "" {
 		// return unauthorized
-		return models.GithubUser{}, errors.New("Invalid bearer token")
+		return models.GithubUser{}, errors.New("invalid bearer token")
 	}
 
 	var err error
@@ -188,25 +193,25 @@ func CheckAuth(c *fiber.Ctx) (models.GithubUser, error) {
 	}
 
 	if token == nil {
-		return models.GithubUser{}, errors.New("Invalid bearer token")
+		return models.GithubUser{}, errors.New("invalid bearer token")
 	}
 
 	// validate expiration
 	if !token.Valid {
-		return models.GithubUser{}, errors.New("Invalid bearer token")
+		return models.GithubUser{}, errors.New("invalid bearer token")
 	}
 
 	// validate claims
 	claims := token.Claims.(jwt.MapClaims)
 
 	if claims["exp"] == nil {
-		return models.GithubUser{}, errors.New("Invalid bearer token")
+		return models.GithubUser{}, errors.New("invalid bearer token")
 	} else {
 		exp := claims["exp"]
 		// convert exp to int64
 		expInt64 := int64(exp.(float64))
 		if expInt64 < time.Now().Unix() {
-			return models.GithubUser{}, errors.New("Invalid bearer token")
+			return models.GithubUser{}, errors.New("invalid bearer token")
 		}
 	}
 
@@ -220,6 +225,11 @@ func CheckAuth(c *fiber.Ctx) (models.GithubUser, error) {
 	// check if claims["name"] is not nil
 	if claims["name"] == nil {
 		claims["name"] = claims["login"]
+	}
+
+	// check if claims["email"] is not nil
+	if claims["email"] == nil {
+		claims["email"] = ""
 	}
 
 	// return claims map as json
